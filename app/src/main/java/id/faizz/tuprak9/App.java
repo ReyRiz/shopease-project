@@ -32,6 +32,13 @@ import javafx.scene.text.Text;
 
 public class App extends Application {
     public void start(Stage Stage) throws Exception{
+        StackPane root = new StackPane();
+        Scene scene = new Scene(root, 1366, 768);
+        
+        Stage.setScene(scene);
+        Stage.setTitle("Shopease");
+        Stage.setFullScreen(true);
+        Stage.show();
     }
 
     public static void main(String[] args) {
