@@ -3,6 +3,7 @@
  */
 package id.faizz.tuprak9;
 
+import javafx.animation.PauseTransition;
 import javafx.application.Application;
 import javafx.stage.Stage;
 import javafx.scene.Group;
@@ -28,16 +29,31 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
-
+import javafx.util.Duration;
 
 public class App extends Application {
     public void start(Stage Stage) throws Exception{
         StackPane root = new StackPane();
-        Scene scene = new Scene(root, 1366, 768);
-        
+        Scene scene = new Scene(root, 1382, 736);
+
+        VBox awal = new VBox();
+        awal.setAlignment(Pos.CENTER);
+        Image logoAwal = new Image("styles/LogoLoading.png");
+        ImageView nampilin = new ImageView(logoAwal);
+        awal.getChildren().add(nampilin);
+    
+        root.setOnMouseClicked(e -> {
+            LoginPage loginPage = new LoginPage(Stage);
+            loginPage.showPage();
+        });
+
+        root.getChildren().addAll(awal);
+        root.getStyleClass().add("rootPane");
+        scene.getStylesheets().add("styles/styles.css");
         Stage.setScene(scene);
         Stage.setTitle("Shopease");
-        Stage.setFullScreen(true);
+        Stage.setMaximized(true);
+        // Stage.setFullScreen(true);
         Stage.show();
     }
 
