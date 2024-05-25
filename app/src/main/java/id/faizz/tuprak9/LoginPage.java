@@ -55,7 +55,7 @@ public class LoginPage {
         usernamField.setMinSize(244, 30);
         usernamField.getStyleClass().add("fieldni");
         Label pwText = new Label("Password");
-        TextField pwField = new TextField();
+        PasswordField pwField = new PasswordField();
         pwField.setMinSize(244, 30);
         pwField.getStyleClass().add("fieldni");
 

@@ -63,10 +63,10 @@ public class RegisterPage {
         TextField usrField = new TextField();
         usrField.getStyleClass().add("fieldni");
         Label pwLabel = new Label("Password");
-        TextField pwField = new TextField();
+        PasswordField pwField = new PasswordField();
         pwField.getStyleClass().add("fieldni");
         Label confirmPwLabel = new Label("Confirm Password");
-        TextField confirmPwField = new TextField();
+        PasswordField confirmPwField = new PasswordField();
         confirmPwField.getStyleClass().add("fieldni");
 
         Button regButton = new Button("Register");
