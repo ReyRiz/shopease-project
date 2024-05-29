@@ -27,64 +27,73 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.scene.shape.Line;
-
-
+// Kelas untuk halaman login
 public class LoginPage {
     private Stage stage;
+
+    // Konstruktor untuk menerima objek Stage
     LoginPage(Stage stage){
         this.stage = stage;
     }
 
+    // Metode untuk menampilkan halaman login
     public void showPage(){
         StackPane root = new StackPane();
         stage.setMaximized(true);
+
+        // Membuat tata letak VBox utama
         VBox mainPanel = new VBox();
         mainPanel.setAlignment(Pos.TOP_CENTER);
 
+        // Menambahkan logo
         Image logox = new Image("styles/logobiasa.png");
         ImageView logo = new ImageView(logox);
 
+        // Membuat VBox untuk elemen-elemen login
         VBox loginBox = new VBox(10);
         loginBox.setPadding(new Insets(26, 28, 45, 29));
         loginBox.setPrefSize(300, 365);
         loginBox.getStyleClass().add("loginBox");
+
+        // Membuat elemen-elemen login
         Label textLogin = new Label("Log-in");
         textLogin.getStyleClass().add("loginText");
-        Label usernamText = new Label("Username");
-        TextField usernamField = new TextField();
-        usernamField.setMinSize(244, 30);
-        usernamField.getStyleClass().add("fieldni");
+        Label usernameText = new Label("Username");
+        TextField usernameField = new TextField();
+        usernameField.setMinSize(244, 30);
+        usernameField.getStyleClass().add("fieldni");
         Label pwText = new Label("Password");
         PasswordField pwField = new PasswordField();
         pwField.setMinSize(244, 30);
         pwField.getStyleClass().add("fieldni");
 
+        // Tombol login
         Button loginBtn = new Button("Login");
         loginBtn.setMinSize(250, 35);
         loginBtn.getStyleClass().add("loginbtn");
-        // loginBtn.setAlignment(Pos.CENTER);
 
+        // Garis dan teks untuk pengguna baru
+        HBox newUserLine = new HBox(10);
+        Line line1 = new Line(0, 0, 71, 0);
+        line1.setStrokeWidth(1);
+        Text textNewUser = new Text("New User?");
+        Line line2 = new Line(0, 0, 71, 0);
+        line2.setStrokeWidth(1);
+        newUserLine.getChildren().addAll(line1, textNewUser, line2);
+        newUserLine.setAlignment(Pos.CENTER);
 
-        HBox garisPenggunaBaru = new HBox(10);
-        Line garis1 = new Line(0, 0, 71, 0);
-        garis1.setStrokeWidth(1);
-        Text textPengguna = new Text("Pengguna Baru?");
-        Line garis2 = new Line(0, 0, 71, 0);
-        garis2.setStrokeWidth(1);
-        garisPenggunaBaru.getChildren().addAll(garis1, textPengguna, garis2);
-        garisPenggunaBaru.setAlignment(Pos.CENTER);
-
-
+        // Tombol untuk pendaftaran
         Button regBtn = new Button("Register");
         regBtn.setMinSize(250, 35);
         regBtn.getStyleClass().add("regBtn");
 
-
-        loginBox.getChildren().addAll(textLogin, usernamText, usernamField, pwText, pwField, loginBtn, garisPenggunaBaru, regBtn);
+        // Menambahkan elemen-elemen ke dalam VBox loginBox
+        loginBox.getChildren().addAll(textLogin, usernameText, usernameField, pwText, pwField, loginBtn, newUserLine, regBtn);
         Region space45 = new Region();
         space45.setPrefSize(0, 45);
 
-        mainPanel.getChildren().addAll(logo,space45, loginBox);
+        // Menambahkan elemen-elemen ke dalam VBox utama
+        mainPanel.getChildren().addAll(logo, space45, loginBox);
 
         root.getChildren().addAll(mainPanel);
         mainPanel.setPadding(new Insets(30, 0, 0, 0));
@@ -95,18 +104,23 @@ public class LoginPage {
         stage.setScene(scene);
         stage.setTitle("Shopease");
 
+        // Aksi ketika tombol login ditekan
         loginBtn.setOnAction(e -> {
-            String username = usernamField.getText();
+            String username = usernameField.getText();
             String password = pwField.getText();
 
+            // Menampilkan halaman utama
+            HomePage home = new HomePage(stage);
+            home.show();
         });
 
+        // Aksi ketika tombol register ditekan
         regBtn.setOnAction(e -> {
             RegisterPage regPage = new RegisterPage(stage);
             regPage.showPage();
         });
 
-        // stage.setFullScreen(true);
+        // Menampilkan stage
         stage.show();
     }
 }
