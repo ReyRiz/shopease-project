@@ -3,18 +3,21 @@
 }
 
 .homePage{
-    -fx-background-color: #FFFFFF;
+    -fx-background-color: #E9E9E9;
 }
 
 .navigationBar{
     -fx-background-color: #6345DD;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.25), 100, 0, 0, 0);
+
 }
 
 .searchBar{
     -fx-background-color: #D9D9D9;
-    -fx-background-radius: 30;
+    -fx-background-radius: 5;
     -fx-text-fill: #a4a4a4;
     -fx-font-size: 15;
+    -fx-font-family: Calibri;
 }
 
 .profile{
@@ -22,11 +25,58 @@
     
 }
 
+.usernameText{
+    -fx-alignment: center;
+    -fx-font-family: Calibri;
+    -fx-text-fill: #a4a4a4;
+    -fx-font-size: 20;
+}
+
+.masukdisini{
+    -fx-text-fill:#6345DD ;
+    -fx-font-family: Calibri;
+    -fx-font-size: 20;
+}
+
+.konten{
+    -fx-background-color: #6354DD;
+    -fx-background-radius: 10;
+}
+
+.masukdisini:hover{
+    -fx-text-fill:#6345DD ;
+    -fx-font-family: Calibri;
+    -fx-font-size: 20;
+    -fx-text-decoration: underline;
+}
+
 .userLabel{
     -fx-text-fill:#a4a4a4 ;
     -fx-font-family: Calibri;
-    -fx-font-weight: italic;
     -fx-font-size: 20;
+}
+
+.produkBox{
+    -fx-background-color: #FFFEFE;
+    -fx-border-color: #CACACA;
+    -fx-border-width: 1;
+}
+.judulProduk{
+    -fx-font-family: Calibri;
+    -fx-font-size: 15;
+}
+.hargaProduk{
+    -fx-font-family: Calibri;
+    -fx-font-size: 20;
+    -fx-font-weight: bold;
+    -fx-text-fill: #6345DD;
+}
+
+.katText{
+    -fx-font-family: Calibri;
+    -fx-text-fill: #ffffff;
+    -fx-text-alignment: center;
+    -fx-font-size: 15;
 }
 
 .loginBox{

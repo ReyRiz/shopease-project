@@ -62,8 +62,6 @@ public class App extends Application {
         scene.getStylesheets().add("styles/styles.css"); // Menambahkan stylesheet untuk styling
         stage.setScene(scene); // Menetapkan scene pada stage
         stage.setTitle("Shopease"); // Menetapkan judul jendela aplikasi
-        stage.setMaximized(true); // Menetapkan jendela aplikasi menjadi maksimalkan
-        // stage.setFullScreen(true); // Opsi untuk menetapkan aplikasi ke mode layar penuh
         stage.show(); // Menampilkan stage
     }
 

@@ -39,7 +39,6 @@ public class LoginPage {
     // Metode untuk menampilkan halaman login
     public void showPage(){
         StackPane root = new StackPane();
-        stage.setMaximized(true);
 
         // Membuat tata letak VBox utama
         VBox mainPanel = new VBox();

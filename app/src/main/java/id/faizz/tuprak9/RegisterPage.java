@@ -76,7 +76,7 @@ public class RegisterPage {
         confirmPwField.getStyleClass().add("fieldni"); // Menambahkan kelas CSS untuk styling
 
         Button regButton = new Button("Register"); // Tombol "Register"
-        regButton.getStyleClass().add("loginbtn"); // Menambahkan kelas CSS untuk styling
+        regButton.getStyleClass().add("regBtn"); // Menambahkan kelas CSS untuk styling
         regButton.setPrefSize(244, 40); // Ukuran preferensi tombol pendaftaran
         Label punyaAkun = new Label("Sudah punya akun? Masuk disini."); // Label untuk login
 
