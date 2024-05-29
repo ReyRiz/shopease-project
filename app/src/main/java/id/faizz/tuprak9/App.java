@@ -3,40 +3,22 @@
  */
 package id.faizz.tuprak9;
 // Import statements untuk JavaFX dan kelas-kelas yang diperlukan
-import javafx.animation.PauseTransition;
 import javafx.application.Application;
 import javafx.stage.Stage;
-import javafx.scene.Group;
 import javafx.scene.Scene;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundImage;
-import javafx.scene.layout.BackgroundPosition;
-import javafx.scene.layout.BackgroundRepeat;
-import javafx.scene.layout.BackgroundSize;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.Priority;
-import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
-import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
-import javafx.scene.text.Text;
-import javafx.util.Duration;
-
 // Kelas utama aplikasi yang mengimplementasikan interface Application
 public class App extends Application {
 
     // Metode start untuk menginisialisasi dan menampilkan aplikasi
     @Override
     public void start(Stage stage) throws Exception {
+        Font.loadFont(getClass().getResourceAsStream("styles/oregano/Oregano-Regular.ttf"), 12);
         // Membuat root StackPane sebagai root dari semua node di scene
         StackPane root = new StackPane();
         Scene scene = new Scene(root, 1382, 736); // Membuat scene dengan ukuran 1382x736

@@ -1,19 +1,8 @@
 package id.faizz.tuprak9;
 
-import javafx.application.Application;
-import javafx.animation.*;
 import javafx.stage.Stage;
-import javafx.scene.Group;
 import javafx.scene.Scene;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundImage;
-import javafx.scene.layout.BackgroundPosition;
-import javafx.scene.layout.BackgroundRepeat;
-import javafx.scene.layout.BackgroundSize;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
@@ -22,12 +11,6 @@ import javafx.geometry.Pos;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
-import javafx.scene.text.Font;
-import javafx.scene.text.Text;
-import javafx.scene.shape.Line;
-
 public class RegisterPage {
     private Stage stage;
 
@@ -47,22 +30,20 @@ public class RegisterPage {
         ImageView logo = new ImageView(imageLogo);
 
         // Membuat HBox untuk layout kedua
-        HBox layoutKedua = new HBox(10);
+        HBox layoutKedua = new HBox();
         layoutKedua.setAlignment(Pos.CENTER);
 
         // Menampilkan slogan
-        Image imageSlogan = new Image("styles/slogan.png");
+        Image imageSlogan = new Image("styles/imgbg.png");
         ImageView slogan = new ImageView(imageSlogan);
-
-        Region space177 = new Region();
-        space177.setPrefWidth(177);
+        slogan.getStyleClass().add("imgBg");
 
         // Membuat VBox untuk semua elemen input pendaftaran
         VBox allField = new VBox(7);
         VBox regWindow = new VBox(15); // VBox untuk tata letak pendaftaran
         regWindow.setPadding(new Insets(25, 28, 25, 28)); // Padding VBox pendaftaran
         regWindow.setPrefSize(300, 365); // Ukuran preferensi VBox pendaftaran
-        regWindow.getStyleClass().add("loginBox"); // Menambahkan kelas CSS untuk styling
+        regWindow.getStyleClass().add("registerBox"); // Menambahkan kelas CSS untuk styling
         Label regText = new Label("Register"); // Label "Register"
         regText.getStyleClass().add("regText"); // Menambahkan kelas CSS untuk styling
         Label usrText = new Label("Username"); // Label "Username"
@@ -91,13 +72,15 @@ public class RegisterPage {
             HomePage home = new HomePage(stage);
             home.show();
         });
+        Region space46 = new Region();
+        space46.setPrefHeight(46);
 
         // Menambahkan elemen-elemen ke dalam VBox pendaftaran
         allField.getChildren().addAll(usrText, usrField, pwLabel, pwField, confirmPwLabel, confirmPwField);
         regWindow.setAlignment(Pos.CENTER);
         regWindow.getChildren().addAll(regText, allField, regButton, punyaAkun);
-        layoutKedua.getChildren().addAll(slogan, space177, regWindow);
-        mainPanel.getChildren().addAll(logo, layoutKedua);
+        layoutKedua.getChildren().addAll(slogan, regWindow);
+        mainPanel.getChildren().addAll(logo, space46, layoutKedua);
 
         mainPanel.setAlignment(Pos.BASELINE_CENTER);
         root.getChildren().addAll(mainPanel);

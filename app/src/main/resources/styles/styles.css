@@ -6,6 +6,13 @@
     -fx-background-color: #E9E9E9;
 }
 
+.profileLabel{
+    -fx-font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    -fx-font-size: 20;
+    -fx-font-weight: bold;
+    -fx-text-fill: #FFFFFF;
+}
+
 .navigationBar{
     -fx-background-color: #6345DD;
     -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.25), 100, 0, 0, 0);
@@ -77,6 +84,16 @@
     -fx-text-fill: #ffffff;
     -fx-text-alignment: center;
     -fx-font-size: 15;
+}
+
+.registerBox{
+    -fx-background-color: #FFFFFF;
+    -fx-background-radius: 0 10 10 0;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.25), 100, 0, 0, 0);
+}
+
+.imgBg{
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.25), 100, 0, 0, 0);
 }
 
 .loginBox{

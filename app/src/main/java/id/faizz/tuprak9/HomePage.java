@@ -15,7 +15,6 @@ import javafx.scene.control.ScrollPane.ScrollBarPolicy;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import java.io.File;
 
 public class HomePage {
     private Stage stage;
@@ -52,6 +51,10 @@ public class HomePage {
         Label userLabel = new Label("Username here");
         userLabel.getStyleClass().add("usernameText");
 
+        // saat username di klik
+        username.setOnMouseClicked(e -> {
+            ProfilePage menuProfil = new ProfilePage(stage);
+        });
         // Bagian Home - Scroll Pane;
         ScrollPane home = new ScrollPane();
         home.setPrefSize(1382, 626);
@@ -79,11 +82,11 @@ public class HomePage {
         VBox textProdukCat = new VBox(produkCategories);
         textProdukCat.setAlignment(Pos.CENTER);
 
-        HBox kontenKategoriUtama = new HBox(15);
+        HBox kontenKategoriUtama = new HBox(18);
 
         VBox kontenElektronik = new VBox(6);
         kontenElektronik.getStyleClass().add("konten");
-        kontenElektronik.setPrefSize(90, 105);
+        kontenElektronik.setPrefSize(90, 106);
         ImageView elektronik = new ImageView(new Image("styles/Kategori/1.png"));
         elektronik.setFitWidth(70);
         elektronik.setFitHeight(70);
@@ -96,7 +99,7 @@ public class HomePage {
 
         VBox kontenKecantikan = new VBox(6);
         kontenKecantikan.getStyleClass().add("konten");
-        kontenKecantikan.setPrefSize(90, 105);
+        kontenKecantikan.setPrefSize(90, 106);
         ImageView kecantikan = new ImageView(new Image("styles/Kategori/2.png"));
         kecantikan.setFitWidth(70);
         kecantikan.setFitHeight(70);
@@ -109,7 +112,7 @@ public class HomePage {
 
         VBox kontenPerlengkapanRumah = new VBox(6);
         kontenPerlengkapanRumah.getStyleClass().add("konten");
-        kontenPerlengkapanRumah.setPrefSize(90, 105);
+        kontenPerlengkapanRumah.setPrefSize(90, 106);
         ImageView perlengkapanRumah = new ImageView(new Image("styles/Kategori/3.png"));
         perlengkapanRumah.setFitWidth(70);
         perlengkapanRumah.setFitHeight(70);
@@ -122,7 +125,7 @@ public class HomePage {
 
         VBox kontenOtomotif = new VBox(6);
         kontenOtomotif.getStyleClass().add("konten");
-        kontenOtomotif.setPrefSize(90, 105);
+        kontenOtomotif.setPrefSize(90, 106);
         ImageView otomotif = new ImageView(new Image("styles/Kategori/4.png"));
         otomotif.setFitWidth(70);
         otomotif.setFitHeight(70);
@@ -135,7 +138,7 @@ public class HomePage {
         
         VBox kontenHobiKoleksi = new VBox(6);
         kontenHobiKoleksi.getStyleClass().add("konten");
-        kontenHobiKoleksi.setPrefSize(90, 105);
+        kontenHobiKoleksi.setPrefSize(90, 106);
         ImageView hobiKoleksi = new ImageView(new Image("styles/Kategori/5.png"));
         hobiKoleksi.setFitWidth(70);
         hobiKoleksi.setFitHeight(70);
@@ -148,7 +151,7 @@ public class HomePage {
         
         VBox kontenHandphone = new VBox(6);
         kontenHandphone.getStyleClass().add("konten");
-        kontenHandphone.setPrefSize(90, 105);
+        kontenHandphone.setPrefSize(90, 106);
         ImageView handphone = new ImageView(new Image("styles/Kategori/6.png"));
         handphone.setFitWidth(70);
         handphone.setFitHeight(70);
@@ -161,7 +164,7 @@ public class HomePage {
         
         VBox kontenKesehatan = new VBox(6);
         kontenKesehatan.getStyleClass().add("konten");
-        kontenKesehatan.setPrefSize(90, 105);
+        kontenKesehatan.setPrefSize(90, 106);
         ImageView kesehatan = new ImageView(new Image("styles/Kategori/7.png"));
         kesehatan.setFitWidth(70);
         kesehatan.setFitHeight(70);
@@ -174,7 +177,7 @@ public class HomePage {
         
         VBox kontenPakaian = new VBox(6);
         kontenPakaian.getStyleClass().add("konten");
-        kontenPakaian.setPrefSize(90, 105);
+        kontenPakaian.setPrefSize(90, 106);
         ImageView pakaian = new ImageView(new Image("styles/Kategori/8.png"));
         pakaian.setFitWidth(70);
         pakaian.setFitHeight(70);
