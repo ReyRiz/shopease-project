@@ -7,6 +7,8 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
 import javafx.scene.layout.HBox;
+import id.faizz.tuprak9.controllers.UsersControllers;
+import id.faizz.tuprak9.models.Users;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.ScrollPane;
@@ -23,9 +25,11 @@ public class HomePage {
         this.stage = stage;
     }
 
-    public void show() {
+    public void show(int userId) {
+        Users users = UsersControllers.getUserById(userId);
+
         StackPane root = new StackPane();
-        root.getStyleClass().add("homePage");
+        root.getStyleClass().add("homePage"); 
 
         VBox awal = new VBox();
 
@@ -48,12 +52,14 @@ public class HomePage {
         ImageView photoProfile = new ImageView(new Image("styles/Profile.JPG"));
         photoProfile.setFitHeight(45);
         photoProfile.setFitWidth(45);
-        Label userLabel = new Label("Username here");
+        Label userLabel = new Label(users.getUsername());
         userLabel.getStyleClass().add("usernameText");
 
         // saat username di klik
         username.setOnMouseClicked(e -> {
             ProfilePage menuProfil = new ProfilePage(stage);
+            menuProfil.show(userId);
+
         });
         // Bagian Home - Scroll Pane;
         ScrollPane home = new ScrollPane();

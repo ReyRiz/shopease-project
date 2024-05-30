@@ -1,8 +1,11 @@
 package id.faizz.tuprak9;
 
 import javafx.application.Application;
+import id.faizz.tuprak9.controllers.UsersControllers;
+import id.faizz.tuprak9.models.Users;
 import javafx.animation.*;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.layout.Background;
@@ -27,17 +30,18 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.scene.shape.Line;
+
 // Kelas untuk halaman login
 public class LoginPage {
     private Stage stage;
 
     // Konstruktor untuk menerima objek Stage
-    LoginPage(Stage stage){
+    LoginPage(Stage stage) {
         this.stage = stage;
     }
 
     // Metode untuk menampilkan halaman login
-    public void showPage(){
+    public void showPage() {
         StackPane root = new StackPane();
 
         // Membuat tata letak VBox utama
@@ -50,7 +54,7 @@ public class LoginPage {
 
         // Membuat VBox untuk elemen-elemen login
         VBox loginBox = new VBox(10);
-        loginBox.setPadding(new Insets(26, 28, 45, 29));
+        loginBox.setPadding(new Insets(26, 28, 30, 29));
         loginBox.setPrefSize(300, 365);
         loginBox.getStyleClass().add("loginBox");
 
@@ -86,8 +90,16 @@ public class LoginPage {
         regBtn.setMinSize(250, 35);
         regBtn.getStyleClass().add("regBtn");
 
+
+        VBox gagal = new VBox();
+        gagal.setPrefSize(20, 10);
+        Label gagal1 = new Label("Gagal Login");
+        gagal1.setVisible(true);
+        gagal1.getStyleClass().add("gagal");
+        gagal1.setAlignment(Pos.CENTER);
         // Menambahkan elemen-elemen ke dalam VBox loginBox
-        loginBox.getChildren().addAll(textLogin, usernameText, usernameField, pwText, pwField, loginBtn, newUserLine, regBtn);
+        loginBox.getChildren().addAll(textLogin, usernameText, usernameField, pwText, pwField, loginBtn, newUserLine,
+                regBtn, gagal);
         Region space45 = new Region();
         space45.setPrefSize(0, 45);
 
@@ -108,9 +120,15 @@ public class LoginPage {
             String username = usernameField.getText();
             String password = pwField.getText();
 
-            // Menampilkan halaman utama
-            HomePage home = new HomePage(stage);
-            home.show();
+            Users userLogin = UsersControllers.login(username, password);
+
+            if (userLogin != null){
+                HomePage home = new HomePage(stage);
+                home.show(userLogin.getId());
+            } else {
+                gagal.setVisible(true);
+            }
+
         });
 
         // Aksi ketika tombol register ditekan

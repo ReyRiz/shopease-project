@@ -19,10 +19,10 @@ import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
 
-public class ProfilePage{
+public class AlamatPage{
     private Stage stage;
 
-    ProfilePage(Stage stage){
+    AlamatPage(Stage stage){
         this.stage = stage;
     }
 
@@ -65,20 +65,25 @@ public class ProfilePage{
         
         VBox focusedBox = new VBox();
         Label profilLabel = new Label("Profile");
-        profilLabel.getStyleClass().add("labelSlideBarFocused");
-        focusedBox.getStyleClass().add("focusedBox");
-        focusedBox.getChildren().add(profilLabel);
-        focusedBox.setMinSize(150, 47);
-        focusedBox.setAlignment(Pos.CENTER);
+        profilLabel.getStyleClass().add("labelSlideBar");
 
         Label alamatLabel = new Label("Alamat");
-        alamatLabel.getStyleClass().add("labelSlideBar");
+        alamatLabel.getStyleClass().add("labelSlideBarFocused");
+
+        
         Label pwLabel = new Label("Ubah Password");
         pwLabel.getStyleClass().add("labelSlideBar");
+
         Label akunLabel = new Label("Ubah Akun");
         akunLabel.getStyleClass().add("labelSlideBar");
+
         Label fotoLabel = new Label("Ubah Foto");
         fotoLabel.getStyleClass().add("labelSlideBar");
+
+        focusedBox.getStyleClass().add("focusedBox");
+        focusedBox.getChildren().add(alamatLabel);
+        focusedBox.setMinSize(150, 47);
+        focusedBox.setAlignment(Pos.CENTER);
 
         slideBar.getChildren().addAll(focusedBox, alamatLabel, pwLabel, akunLabel, fotoLabel);
         // slideBar.setAlignment(Pos.CENTER);
