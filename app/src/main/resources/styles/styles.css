@@ -165,10 +165,11 @@
 }
 
 .usernameText{
-    -fx-alignment: center;
     -fx-font-family: Calibri;
-    -fx-text-fill: #a4a4a4;
+    -fx-alignment: center;
+    -fx-text-fill: #ffffff;
     -fx-font-size: 20;
+    -fx-font-weight: bold;
 }
 
 .masukdisini{

@@ -122,7 +122,7 @@ public class ProfilePage{
         space37.setPrefWidth(37);
 
         VBox layoutBox2 = new VBox(20);
-        layoutBox2.setPrefSize(900, 366);
+        layoutBox2.setPrefSize(900, 466);
         layoutBox2.getStyleClass().add("layoutBox2");
         layoutBox2.setPadding(new Insets(26, 58, 26, 58));
 

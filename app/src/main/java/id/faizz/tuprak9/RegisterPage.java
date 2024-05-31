@@ -75,40 +75,44 @@ public class RegisterPage {
         });
 
         regButton.setOnAction(e -> {
-    String username = usrField.getText();
-    String password = pwField.getText();
-    String konfirPassword = confirmPwField.getText();
+            String username = usrField.getText();
+            String password = pwField.getText();
+            String konfirPassword = confirmPwField.getText();
 
-    if (!password.equals(konfirPassword) || username.isEmpty()) {
-        messageLabel.setText("Gagal Membuat Akun");
-        messageLabel.setTextFill(Color.web("#F65353"));
-    } else {
-        RegistrationResult result = UsersControllers.register(username, password);
+            if (!username.matches("[a-z]+")) {
+                messageLabel.setText("Username hanya boleh huruf kecil");
+                messageLabel.setTextFill(Color.web("#F65353"));
+            } else if (password.length() < 8) {
+                messageLabel.setText("Password harus 8 karakter lebih");
+                messageLabel.setTextFill(Color.web("#F65353"));
+            } else if (!password.equals(konfirPassword)) {
+                messageLabel.setText("Konfirmasi password tidak sesuai");
+                messageLabel.setTextFill(Color.web("#F65353"));
+            } else {
+                RegistrationResult result = UsersControllers.register(username, password);
 
-        if (result == RegistrationResult.SUCCESS) {
-            messageLabel.setText("Berhasil Membuat Akun");
-            messageLabel.setTextFill(Color.web("#6345DD"));
-            PauseTransition pause = new PauseTransition(Duration.seconds(4));
-            pause.setOnFinished(event -> {
-                LoginPage loginPage = new LoginPage(stage);
-                loginPage.showPage();
-            });
+                if (result == RegistrationResult.SUCCESS) {
+                    messageLabel.setText("Berhasil Membuat Akun");
+                    messageLabel.setTextFill(Color.web("#6345DD"));
+                    PauseTransition pause = new PauseTransition(Duration.seconds(4));
+                    pause.setOnFinished(event -> {
+                        LoginPage loginPage = new LoginPage(stage);
+                        loginPage.showPage();
+                    });
+                    pause.play();
+                } else if (result == RegistrationResult.USERNAME_TAKEN) {
+                    messageLabel.setText("Username telah dipakai");
+                    messageLabel.setTextFill(Color.web("#F65353"));
+                } else {
+                    messageLabel.setText("Gagal Membuat Akun");
+                    messageLabel.setTextFill(Color.web("#F65353"));
+                }
+            }
+            messageLabel.setVisible(true);
+            PauseTransition pause = new PauseTransition(Duration.seconds(3));
+            pause.setOnFinished(event -> messageLabel.setVisible(false));
             pause.play();
-        } else if (result == RegistrationResult.USERNAME_TAKEN) {
-            messageLabel.setText("Username telah dipakai");
-            messageLabel.setTextFill(Color.web("#F65353"));
-        } else {
-            messageLabel.setText("Gagal Membuat Akun");
-            messageLabel.setTextFill(Color.web("#F65353"));
-        }
-    }
-    messageLabel.setVisible(true);
-    PauseTransition pause = new PauseTransition(Duration.seconds(3));
-    pause.setOnFinished(event -> messageLabel.setVisible(false));
-    pause.play();
-});
-
-
+        });
 
         Region space46 = new Region();
         space46.setPrefHeight(46);

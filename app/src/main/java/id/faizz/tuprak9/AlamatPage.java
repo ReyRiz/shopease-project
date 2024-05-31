@@ -120,7 +120,7 @@ public class AlamatPage {
 
         // Layout Kedua
         VBox layoutBox2 = new VBox(20);
-        layoutBox2.setPrefSize(900, 366);
+        layoutBox2.setPrefSize(900, 466);
         layoutBox2.getStyleClass().add("layoutBox2");
         layoutBox2.setPadding(new Insets(26, 58, 26, 58));
 

@@ -28,7 +28,7 @@ public class App extends Application {
         ImageView nampilin = new ImageView(logoAwal);
         awal.getChildren().add(nampilin);
 
-        FadeTransition fadeTransition = new FadeTransition(Duration.seconds(3), nampilin);
+        FadeTransition fadeTransition = new FadeTransition(Duration.seconds(2), nampilin);
         fadeTransition.setFromValue(0);
         fadeTransition.setToValue(1);
         fadeTransition.play();

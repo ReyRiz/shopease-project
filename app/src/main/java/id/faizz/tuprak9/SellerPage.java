@@ -74,12 +74,12 @@ public class SellerPage {
         // Bagian Home - Scroll Pane;
         ScrollPane home = new ScrollPane();
         home.setPrefSize(1382, 626);
-        home.setFitToWidth(true); // Ensure the content width matches the ScrollPane width
+        home.setFitToWidth(true); 
         home.setHbarPolicy(ScrollBarPolicy.NEVER);
 
         VBox isiHome = new VBox(20); // Added spacing between elements
         isiHome.setFillWidth(true);
-        isiHome.setPadding(new Insets(120));
+        isiHome.setPadding(new Insets(40, 120, 120, 120));
 
         VBox layout1 = new VBox(12);
         layout1.setPrefSize(800, 200);
