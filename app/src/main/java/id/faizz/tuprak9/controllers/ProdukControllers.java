@@ -10,6 +10,24 @@ import id.faizz.tuprak9.models.RegistrationResult;
 import id.faizz.tuprak9.models.Produk;
 
 public class ProdukControllers extends DbConfig {
+
+    public static boolean updateProduk(int id, String nama, String foto, String deskripsi, int harga, int userId){
+        String query = "UPDATE products SET nama=?, foto=?, deskripsi=?, harga=?, userId=? WHERE id=?";
+        try {
+            getConnection();
+            preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setString(1, nama);
+            preparedStatement.setString(2, foto);
+            preparedStatement.setString(3, deskripsi);
+            preparedStatement.setInt(4, harga);
+            preparedStatement.setInt(5, userId);
+            int affectedRows = preparedStatement.executeUpdate();
+            return affectedRows > 0;
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+        return false;
+    }
     
     public static List<Produk> getAllProduk(){
         List<Produk> produks = new ArrayList<>();

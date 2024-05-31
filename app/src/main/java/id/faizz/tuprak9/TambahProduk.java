@@ -87,7 +87,7 @@ public class TambahProduk {
 
         VBox tambahx = new VBox();
         tambahx.setAlignment(Pos.CENTER);
-        Label tambahLabel = new Label("Tambah Produk");
+        Label tambahLabel = new Label("Edit Produk");
         tambahLabel.setStyle("-fx-text-fill: #000; -fx-font-size: 25; -fx-font-weight: bold; -fx-font-family: Calibri;");
         tambahx.getChildren().add(tambahLabel);
 
@@ -120,7 +120,7 @@ public class TambahProduk {
 
         HBox namaSection = new HBox();
         namaSection.setAlignment(Pos.CENTER_LEFT);  // Set alignment to center
-        Label namaLabel = new Label("Nama Produk       :");
+        Label namaLabel = new Label("Nama Produk       : ");
         namaLabel.setStyle("-fx-text-fill: #000; -fx-font-family: Calibri; -fx-font-size: 25;");
         TextField namaField = new TextField();
         namaField.setPrefSize(300, 30);
@@ -138,14 +138,14 @@ public class TambahProduk {
 
         HBox hargaSection = new HBox();
         hargaSection.setAlignment(Pos.CENTER_LEFT);
-        Label hargaLabel = new Label("Harga Produk     : ");
+        Label hargaLabel = new Label("Harga Produk        : ");
         hargaLabel.setStyle("-fx-text-fill: #000; -fx-font-family: Calibri; -fx-font-size: 25;");
         TextField hargaField = new TextField();
         hargaField.setPrefSize(300, 30);
         hargaField.getStyleClass().add("textFieldforProduk");
         hargaSection.getChildren().addAll(hargaLabel, hargaField);
 
-        Button simpan = new Button("SIMPAN");
+        Button simpan = new Button("KONFIRMASI EDIT");
         simpan.setPrefSize(150, 50);
         simpan.getStyleClass().add("buttonSimpan");
 

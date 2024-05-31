@@ -143,7 +143,21 @@ public class SellerPage {
                     Region spasii = new Region();
                     spasii.setPrefWidth(230);
                     produk.getChildren().addAll(imageContainer, namaProdukDanHarga, spasii);
-                    kumpulanProduk.getChildren().add(produk);                    
+                    kumpulanProduk.getChildren().add(produk);             
+
+                    VBox buttonEdit1 = new VBox();
+                    buttonEdit1.setAlignment(Pos.BOTTOM_RIGHT);
+        
+                    Button buttonEdit = new Button("EDIT PRODUK");
+                    buttonEdit.setPrefSize(200, 40);
+                    buttonEdit.getStyleClass().add("buttonSimpan");
+        
+                    buttonEdit.setOnAction(event -> {
+                        // Masuk Ke Halaman edit Produk
+                        editPage editPage = new editPage(stage, i);
+                        editPage.show(userId);
+                    });                    
+                    
                 }
             }
 
@@ -209,7 +223,7 @@ public class SellerPage {
 
             buttonEdit.setOnAction(e -> {
                 // Masuk Ke Halaman edit Produk
-                editPage editPage = new editPage(stage);
+                editPage editPage = new editPage(stage , i);
                 editPage.show(userId);
             });
 

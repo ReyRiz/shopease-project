@@ -61,6 +61,10 @@ public class HomePage {
         searchField.getStyleClass().add("searchBar");
         searchField.setPromptText("Silahkan mencari disini..");
 
+        searchField.setOnAction(e -> {
+
+        });
+
         ImageView logoKeranjang = new ImageView(new Image("styles/Keranjang.png"));
 
         HBox username = new HBox(10);
@@ -109,44 +113,28 @@ public class HomePage {
         produkContainer.setPadding(new Insets(20));
         produkContainer.setHgap(20);
         produkContainer.setVgap(20);
-        produkContainer.setAlignment(Pos.TOP_LEFT);
+        produkContainer.setAlignment(Pos.TOP_CENTER);
 
         isiHome.getChildren().addAll(altBannerBox, garis);
         int counter = 0;
 
         for (Produk i : produks) {
-            VBox produkBox = new VBox();
-            produkBox.setPadding(new Insets(15));
-            produkBox.getStyleClass().add("produkBox");
-            produkBox.setMaxSize(130, 186);
-            try {
-                System.out.println("Loading product image from: " + i.getFoto());
-                Image x = new Image("file:" + i.getFoto());
-                
-                ImageView image = new ImageView(x);
-                image.setFitWidth(130);
-                image.setFitHeight(130);
-                Label judulProduk = new Label(i.getNama());
-                judulProduk.setPrefSize(120, 20);
-                judulProduk.getStyleClass().add("judulProduk");
-                Label hargaProduk = new Label(String.valueOf(i.getHarga()));
-                hargaProduk.setPrefSize(120, 14);
-                hargaProduk.getStyleClass().add("hargaProduk");
-                produkBox.getChildren().addAll(image, judulProduk, hargaProduk);
-                produkContainer.getChildren().add(produkBox);
+            VBox produkBox = createProductBox(i);
+            produkBox.setOnMouseClicked(e -> {
+                DetailProdukPage detailProdukPage = new DetailProdukPage(stage);
+                detailProdukPage.show(i);
+            });
+            produkContainer.getChildren().add(produkBox);
 
-                counter++;
-                if (counter == 4) {
-                    counter = 0;
-                    isiHome.getChildren().add(produkContainer);
-                    produkContainer = new FlowPane();
-                    produkContainer.setPadding(new Insets(20));
-                    produkContainer.setHgap(20);
-                    produkContainer.setVgap(20);
-                    produkContainer.setAlignment(Pos.TOP_LEFT);
-                }
-            } catch (Exception e) {
-                System.out.println("Error memuat Gambar");
+            counter++;
+            if (counter == 4) {
+                counter = 0;
+                isiHome.getChildren().add(produkContainer);
+                produkContainer = new FlowPane();
+                produkContainer.setPadding(new Insets(20));
+                produkContainer.setHgap(20);
+                produkContainer.setVgap(20);
+                produkContainer.setAlignment(Pos.TOP_CENTER);
             }
         }
 
@@ -166,5 +154,28 @@ public class HomePage {
         stage.setTitle("Shopease");
         stage.setScene(scene);
         stage.show();
+    }
+
+    private VBox createProductBox(Produk produk) {
+        VBox produkBox = new VBox();
+        produkBox.setPadding(new Insets(15));
+        produkBox.getStyleClass().add("produkBox");
+        produkBox.setMaxSize(130, 186);
+        try {
+            Image x = new Image("file:" + produk.getFoto());
+            ImageView image = new ImageView(x);
+            image.setFitWidth(130);
+            image.setFitHeight(130);
+            Label judulProduk = new Label(produk.getNama());
+            judulProduk.setPrefSize(120, 20);
+            judulProduk.getStyleClass().add("judulProduk");
+            Label hargaProduk = new Label(String.valueOf(produk.getHarga()));
+            hargaProduk.setPrefSize(120, 14);
+            hargaProduk.getStyleClass().add("hargaProduk");
+            produkBox.getChildren().addAll(image, judulProduk, hargaProduk);
+        } catch (Exception e) {
+            System.out.println("Error memuat Gambar");
+        }
+        return produkBox;
     }
 }

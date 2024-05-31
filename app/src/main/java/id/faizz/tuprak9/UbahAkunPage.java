@@ -2,6 +2,7 @@ package id.faizz.tuprak9;
 
 import id.faizz.tuprak9.controllers.UsersControllers;
 import id.faizz.tuprak9.models.Users;
+import javafx.animation.PauseTransition;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -19,6 +20,7 @@ import javafx.scene.shape.Line;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 public class UbahAkunPage {
     
@@ -154,6 +156,7 @@ public class UbahAkunPage {
 
         
         Label succesLabel = new Label("Berhasil!");
+        succesLabel.setStyle("-fx-font-size: 20; -fx-font-family: Calibri;");
         succesLabel.setTextFill(Color.web("#6345DD"));
         succesLabel.setVisible(false);
 
@@ -161,11 +164,13 @@ public class UbahAkunPage {
         ubahAkun.setOnAction(e -> {
             UsersControllers.updateUser(userId, users.getNama(), users.getNomorHp(), users.getTempatLahir(), users.getAlamat(), users.getNamaPenerima(), users.getNomorHpPenerima(), users.getfoto(), "seller");
             succesLabel.setVisible(true);
-
-            if (users.getRole().equals("seller")){
+            
+            PauseTransition sleep = new PauseTransition(Duration.seconds(2));
+            sleep.setOnFinished(event -> {
                 SellerPage sellerPage = new SellerPage(stage);
-                sellerPage.show(userId);
-            }
+                sellerPage.show(userId);    
+            });
+            sleep.play();
         });
         
 

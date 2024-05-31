@@ -55,7 +55,7 @@ public class UbahPasswordPage {
         garis.setStroke(Color.web("#FFFFFF"));
         garis.setStrokeWidth(2);
 
-        Label profileLabel = new Label("Profil");
+        Label profileLabel = new Label("Password");
         profileLabel.getStyleClass().add("profileLabel");
 
         VBox bagianBawah = new VBox(18);

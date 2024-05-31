@@ -86,7 +86,6 @@
     -fx-text-fill: #FFF;
     -fx-background-color: #6345DD;
     -fx-background-radius: 5;
-    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.25), 100, 0, 0, 0);
 }
 
 .buttonSimpan:hover{
@@ -97,7 +96,6 @@
     -fx-text-fill: #6345DD;
     -fx-background-color: #FFF;
     -fx-background-radius: 5;
-    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.25), 100, 0, 0, 0);
 }
 
 .labelSlideBarFocused{

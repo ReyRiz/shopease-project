@@ -60,12 +60,11 @@ public class UsersControllers extends DbConfig {
         return null;
     }
 
-    // TODO 7: Create method updateUser(User user)
     public static boolean updateUser(int id, String nama, String nomorHp, String tempatLahir, String alamat, String namaPenerima, String nomorHpPenerima, String foto, String role) {
         String query = "UPDATE users SET nama=?, nomorHp=?, tempatLahir=?, alamat=?, namaPenerima=?, nomorHpPenerima=?, role=?, foto=? WHERE id=?";
     
         try {
-            getConnection(); // Ensure this initializes 'connection'
+            getConnection(); 
             preparedStatement = connection.prepareStatement(query);
             preparedStatement.setString(1, nama);
             preparedStatement.setString(2, nomorHp);
@@ -137,11 +136,9 @@ public class UsersControllers extends DbConfig {
         String queryInsert = "INSERT INTO users (username, password, role) VALUES (?, ?, ?)";
     
         try {
-            // Open connection
             getConnection();
-            connection.setAutoCommit(false); // Begin transaction
+            connection.setAutoCommit(false); 
     
-            // Check if username already exists
             preparedStatement = connection.prepareStatement(queryCheck);
             preparedStatement.setString(1, username);
             ResultSet resultSet = preparedStatement.executeQuery();
@@ -150,21 +147,19 @@ public class UsersControllers extends DbConfig {
                 return RegistrationResult.USERNAME_TAKEN;
             }
     
-            // Insert new user
             preparedStatement = connection.prepareStatement(queryInsert);
             preparedStatement.setString(1, username);
             preparedStatement.setString(2, password);
             preparedStatement.setString(3, "regular");
             preparedStatement.executeUpdate();
     
-            // Commit transaction
             connection.commit();
             return RegistrationResult.SUCCESS;
         } catch (Exception e) {
             e.printStackTrace();
             try {
                 if (connection != null) {
-                    connection.rollback(); // Rollback transaction in case of error
+                    connection.rollback(); 
                 }
             } catch (Exception rollbackException) {
                 rollbackException.printStackTrace();
@@ -176,7 +171,7 @@ public class UsersControllers extends DbConfig {
                 }
                 if (connection != null) {
                     connection.setAutoCommit(true);
-                    connection.close(); // Close connection
+                    connection.close(); 
                 }
             } catch (Exception closeException) {
                 closeException.printStackTrace();

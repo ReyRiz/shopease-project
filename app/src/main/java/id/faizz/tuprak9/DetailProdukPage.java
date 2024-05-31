@@ -1,56 +1,53 @@
 package id.faizz.tuprak9;
 
-
-import id.faizz.tuprak9.controllers.UsersControllers;
-import id.faizz.tuprak9.models.Users;
-import javafx.application.Application;
-import javafx.animation.*;
 import javafx.stage.Stage;
-import javafx.scene.Group;
 import javafx.scene.Scene;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundImage;
-import javafx.scene.layout.BackgroundPosition;
-import javafx.scene.layout.BackgroundRepeat;
-import javafx.scene.layout.BackgroundSize;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.Priority;
-import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
-import javafx.geometry.Insets;
-import javafx.geometry.Pos;
-import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
-import javafx.scene.text.Font;
-import javafx.scene.text.Text;
-import javafx.scene.shape.Line;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
+import javafx.scene.control.Label;
+import id.faizz.tuprak9.models.Produk;
 
 public class DetailProdukPage {
     private Stage stage;
 
-    DetailProdukPage(Stage stage){
+    DetailProdukPage(Stage stage) {
         this.stage = stage;
     }
 
-    public void show(int userId){
-        Users users = UsersControllers.getUserById(userId);
+    public void show(Produk produk) {
         StackPane root = new StackPane();
-        root.getStyleClass().add("homePage");
+        root.getStyleClass().add("detailProdukPage");
 
+        VBox detailBox = new VBox(20);
+        detailBox.setPadding(new Insets(50));
+        detailBox.setAlignment(Pos.CENTER);
+        detailBox.getStyleClass().add("detailBox");
 
-        VBox awal = new VBox();
+        ImageView imageView = new ImageView(new Image("file:" + produk.getFoto()));
+        imageView.setFitHeight(300);
+        imageView.setFitWidth(300);
 
-        HBox navigationBar = new HBox(25);
-        navigationBar.setPadding(new Insets(32));
-        navigationBar.setPrefSize(1382, 110);
-        navigationBar.getStyleClass().add("navigationBar");
-        navigationBar.setAlignment(Pos.CENTER_LEFT);
-        ImageView logo = new ImageView(new Image("/styles/logobiasa.png"));
+        Label namaLabel = new Label(produk.getNama());
+        namaLabel.getStyleClass().add("namaProdukDetail");
+
+        Label hargaLabel = new Label(String.valueOf(produk.getHarga()));
+        hargaLabel.getStyleClass().add("hargaProdukDetail");
+
+        Label deskripsiLabel = new Label(produk.getDeskripsi());
+        deskripsiLabel.getStyleClass().add("deskripsiProdukDetail");
+        deskripsiLabel.setWrapText(true);
+
+        detailBox.getChildren().addAll(imageView, namaLabel, hargaLabel, deskripsiLabel);
+        root.getChildren().add(detailBox);
+
+        Scene scene = new Scene(root, 800, 600);
+        scene.getStylesheets().add("styles/styles.css");
+        stage.setTitle("Detail Produk");
+        stage.setScene(scene);
+        stage.show();
     }
 }
