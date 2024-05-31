@@ -1,12 +1,10 @@
 package id.faizz.tuprak9.controllers;
 
-import java.sql.Blob;
 import java.sql.ResultSet;
 
 import id.faizz.tuprak9.config.DbConfig;
 import id.faizz.tuprak9.models.RegistrationResult;
 import id.faizz.tuprak9.models.Users;
-import javafx.scene.control.TableView.ResizeFeatures;
 
 public class UsersControllers extends DbConfig {
 

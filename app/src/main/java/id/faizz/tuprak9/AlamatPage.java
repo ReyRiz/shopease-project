@@ -47,8 +47,13 @@ public class AlamatPage {
         ImageView logo = new ImageView(new Image("/styles/logobiasa.png"));
 
         logo.setOnMouseClicked(e -> {
-            HomePage home = new HomePage(stage);
-            home.show(userId);
+            if (users.getRole().equals("seller")){
+                SellerPage sellerPage = new SellerPage(stage);
+                sellerPage.show(userId);
+            } else {
+                HomePage home = new HomePage(stage);
+                home.show(userId);
+            }
         });
 
         Line garis = new Line(346, 82, 346, 137);
