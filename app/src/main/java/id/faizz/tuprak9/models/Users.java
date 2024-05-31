@@ -10,6 +10,19 @@ public class Users {
     private String tempatLahir;
     private String alamat;
     private String role;
+    private String namaPenerima;
+    private String nomorHpPenerima;
+    private String foto;
+
+
+      
+    public String getfoto() {
+        return foto;
+    }
+
+    public void setfoto(String foto) {
+        this.foto = foto;
+    }
 
     public Users(int id, String role){
         this.id = id;
@@ -21,7 +34,7 @@ public class Users {
     }
 
     public Users(int id, String username, String password, String nama, String nomorHp, String tempatLahir,
-            String alamat, String role) {
+            String alamat, String namaPenerima, String nomorHpPenerima, String foto, String role) {
         this.id = id;
         this.username = username;
         this.password = password;
@@ -29,7 +42,26 @@ public class Users {
         this.nomorHp = nomorHp;
         this.tempatLahir = tempatLahir;
         this.alamat = alamat;
+        this.namaPenerima = namaPenerima;
+        this.nomorHpPenerima = nomorHpPenerima;
+        this.foto = foto;
         this.role = role;
+    }
+  
+    public String getNamaPenerima() {
+        return namaPenerima;
+    }
+
+    public void setNamaPenerima(String namaPenerima) {
+        this.namaPenerima = namaPenerima;
+    }
+
+    public String getNomorHpPenerima() {
+        return nomorHpPenerima;
+    }
+
+    public void setNomorHpPenerima(String nomorHpPenerima) {
+        this.nomorHpPenerima = nomorHpPenerima;
     }
 
     public int getId() {

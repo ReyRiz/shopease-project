@@ -49,9 +49,16 @@ public class HomePage {
 
         HBox username = new HBox(10);
         username.setAlignment(Pos.CENTER);
-        ImageView photoProfile = new ImageView(new Image("styles/Profile.JPG"));
+        ImageView photoProfile;
+        try {
+            photoProfile = new ImageView(new Image("file:" + users.getfoto()));
+        } catch (Exception e) {
+            // Handle the case where the image cannot be loaded
+            photoProfile = new ImageView(new Image("styles/Profile.JPG"));  // Default image
+        }
         photoProfile.setFitHeight(45);
         photoProfile.setFitWidth(45);
+        photoProfile.getStyleClass().add("photoProfile");
         Label userLabel = new Label(users.getUsername());
         userLabel.getStyleClass().add("usernameText");
 
@@ -194,6 +201,7 @@ public class HomePage {
         kontenPakaian.setPadding(new Insets(10));
         kontenPakaian.getChildren().addAll(pakaian, textPakaian);
         
+        stage.getIcons().add(new Image("styles/AppIcon.png"));
         // kontenKategoriUtama.setAlignment(Pos.BASELINE_CENTER);
         kontenKategoriUtama.getChildren().addAll(kontenElektronik, kontenKecantikan, kontenPerlengkapanRumah, kontenOtomotif, kontenHobiKoleksi, kontenHandphone, kontenKesehatan, kontenPakaian);
 

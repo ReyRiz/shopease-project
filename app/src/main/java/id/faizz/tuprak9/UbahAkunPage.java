@@ -1,28 +1,30 @@
 package id.faizz.tuprak9;
 
-import javafx.stage.Stage;
-import javafx.scene.Scene;
-import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBox;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Region;
 import id.faizz.tuprak9.controllers.UsersControllers;
 import id.faizz.tuprak9.models.Users;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Region;
+import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
+import javafx.scene.text.Text;
+import javafx.scene.text.TextAlignment;
+import javafx.stage.Stage;
 
-public class ProfilePage{
+public class UbahAkunPage {
+    
     private Stage stage;
 
-    ProfilePage(Stage stage){
+    UbahAkunPage(Stage stage){
         this.stage = stage;
     }
 
@@ -52,7 +54,7 @@ public class ProfilePage{
         garis.setStroke(Color.web("#FFFFFF"));
         garis.setStrokeWidth(2);
 
-        Label profileLabel = new Label("Profil");
+        Label profileLabel = new Label("Akun");
         profileLabel.getStyleClass().add("profileLabel");
 
         VBox bagianBawah = new VBox(18);
@@ -63,24 +65,27 @@ public class ProfilePage{
         slideBar.setPrefSize(900, 61);
         slideBar.getStyleClass().add("slideBar-bg");
         
-        VBox focusedBox = new VBox();
         Label profilLabel = new Label("Profile");
-        profilLabel.getStyleClass().add("labelSlideBarFocused");
-        focusedBox.getStyleClass().add("focusedBox");
-        focusedBox.getChildren().add(profilLabel);
-        focusedBox.setMinSize(150, 47);
-        focusedBox.setAlignment(Pos.CENTER);
-
+        profilLabel.getStyleClass().add("labelSlideBar");
+        
+        
+        VBox focusedBox = new VBox();
         Label alamatLabel = new Label("Alamat");
         alamatLabel.getStyleClass().add("labelSlideBar");
+
         Label pwLabel = new Label("Ubah Password");
         pwLabel.getStyleClass().add("labelSlideBar");
         Label akunLabel = new Label("Ubah Akun");
-        akunLabel.getStyleClass().add("labelSlideBar");
+        akunLabel.getStyleClass().add("labelSlideBarFocused");
         Label fotoLabel = new Label("Ubah Foto");
         fotoLabel.getStyleClass().add("labelSlideBar");
 
-        slideBar.getChildren().addAll(focusedBox, alamatLabel, pwLabel, akunLabel, fotoLabel);
+        
+        focusedBox.getChildren().add(akunLabel);
+        focusedBox.setMinSize(150, 47);
+        focusedBox.setAlignment(Pos.CENTER);
+        focusedBox.getStyleClass().add("focusedBox");
+        slideBar.getChildren().addAll(profilLabel, alamatLabel, pwLabel, focusedBox, fotoLabel);
         // slideBar.setAlignment(Pos.CENTER);
         slideBar.setAlignment(Pos.BASELINE_CENTER);
         navigationBar.getChildren().addAll(logo, garis, profileLabel);
@@ -112,6 +117,7 @@ public class ProfilePage{
             ubahFotoPage.show(userId);
             
         });
+
         //Layout Kedua
         Region space37 = new Region();
         space37.setPrefWidth(37);
@@ -120,72 +126,52 @@ public class ProfilePage{
         layoutBox2.setPrefSize(900, 366);
         layoutBox2.getStyleClass().add("layoutBox2");
         layoutBox2.setPadding(new Insets(26, 58, 26, 58));
+        layoutBox2.setAlignment(Pos.CENTER);
 
-        Label judul = new Label("Profil Saya");
+        Label judul = new Label("Ubah Akun Regular ke Akun Seller");
         judul.getStyleClass().add("judulLayoutBox2");
 
         Line batas = new Line(299, 322, 1087, 322);
         batas.setFill(Color.web("#000"));
 
-        //Text Field
-        HBox nama = new HBox(37);
-        Label namaLabel = new Label("Nama                         :");
-        namaLabel.getStyleClass().add("allLabelforSetting");
-        TextField namaField = new TextField(users.getNama());
-        namaField.setPrefSize(350, 30);
-        namaField.getStyleClass().add("allFieldforSetting");
-        nama.getChildren().addAll(namaLabel, space37, namaField);
+        Text deskripsi = new Text();
+        deskripsi.setText("Jika Anda Mengubah ke Akun Seller, Anda akan Mendapatkan\n" + //
+                        "akses untuk menjual produk dan mengelola toko anda");
 
-        HBox nomorHp = new HBox(37);
-        Label nomorLabel = new Label("Nomor Handphone :");
-        nomorLabel.getStyleClass().add("allLabelforSetting");
-        TextField nomorField = new TextField(users.getNomorHp());
-        nomorField.setPrefSize(350, 30);
-        nomorField.getStyleClass().add("allFieldforSetting");
-        nomorHp.getChildren().addAll(nomorLabel,space37,  nomorField);
-
-        HBox tempatLahir = new HBox();
-        Label tempatLabel = new Label("Tempat Lahir            :");
-        TextField tempatField = new TextField(users.getTempatLahir());
-        tempatLabel.getStyleClass().add("allLabelforSetting");
-        tempatField.getStyleClass().add("allFieldforSetting");
-        tempatField.setPrefSize(350, 30);
-        tempatLahir.getChildren().addAll(tempatLabel, space37, tempatField);
-
-        HBox layout3 = new HBox(200);
+        deskripsi.setTextAlignment(TextAlignment.CENTER);
+        deskripsi.setStyle("-fx-font-size: 20;");
+        VBox layout3 = new VBox(20);
         
         
-        Button simpan = new Button("Simpan");
-        simpan.getStyleClass().add("buttonSimpan");
-        simpan.setPrefSize(120, 30);
+        Button ubahAkun = new Button("Ubah Akun");
+        ubahAkun.getStyleClass().add("buttonSimpan");
+        ubahAkun.setPrefSize(120, 30);
 
         
         Label succesLabel = new Label("Berhasil!");
         succesLabel.setTextFill(Color.web("#6345DD"));
         succesLabel.setVisible(false);
 
-        simpan.setOnAction(e -> {
-            String namaX = namaField.getText();
-            String nomorHP = nomorField.getText();
-            String tempatLahirr = tempatField.getText();
-            System.out.println(userId);
-            System.out.println(namaX);
-            System.out.println(nomorHP);
-            System.out.println(tempatLahirr);
-            boolean updateUser = UsersControllers.updateUser(userId, namaX, nomorHP, tempatLahirr, null , null, null, null,  "regular");
-            if (updateUser){
-                succesLabel.setVisible(true);
+
+        ubahAkun.setOnAction(e -> {
+            UsersControllers.updateUser(userId, users.getNama(), users.getNomorHp(), users.getTempatLahir(), users.getAlamat(), users.getNamaPenerima(), users.getNomorHpPenerima(), users.getfoto(), "seller");
+            succesLabel.setVisible(true);
+
+            if (users.getRole().equals("seller")){
+                SellerPage sellerPage = new SellerPage(stage);
+                sellerPage.show(userId);
             }
-            
         });
-
-
-        layout3.getChildren().addAll(simpan, succesLabel);
-
         
+
+
+        layout3.getChildren().addAll(ubahAkun, succesLabel);
+        layout3.setAlignment(Pos.CENTER);
+
+
         stage.getIcons().add(new Image("styles/AppIcon.png"));
 
-        layoutBox2.getChildren().addAll(judul, batas, nama, nomorHp, tempatLahir, layout3);
+        layoutBox2.getChildren().addAll(judul, batas, deskripsi, layout3);
 
         Region space65 = new Region();
         space65.setPrefSize(0, 65);
@@ -201,4 +187,5 @@ public class ProfilePage{
         stage.setTitle("Shopease");
         stage.show();
     }
+    
 }

@@ -1,28 +1,28 @@
 package id.faizz.tuprak9;
 
-import javafx.stage.Stage;
-import javafx.scene.Scene;
-import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBox;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Region;
 import id.faizz.tuprak9.controllers.UsersControllers;
 import id.faizz.tuprak9.models.Users;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.PasswordField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Region;
+import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
+import javafx.stage.Stage;
 
-public class ProfilePage{
+public class UbahPasswordPage {
+
     private Stage stage;
 
-    ProfilePage(Stage stage){
+    UbahPasswordPage(Stage stage){
         this.stage = stage;
     }
 
@@ -46,8 +46,6 @@ public class ProfilePage{
             home.show(userId);
         });
 
-
-
         Line garis = new Line(346, 82, 346, 137);
         garis.setStroke(Color.web("#FFFFFF"));
         garis.setStrokeWidth(2);
@@ -57,41 +55,36 @@ public class ProfilePage{
 
         VBox bagianBawah = new VBox(18);
 
-
         HBox slideBar = new HBox(60);
         slideBar.setPadding(new Insets(7, 10, 7, 10));
         slideBar.setPrefSize(900, 61);
         slideBar.getStyleClass().add("slideBar-bg");
-        
+
         VBox focusedBox = new VBox();
         Label profilLabel = new Label("Profile");
-        profilLabel.getStyleClass().add("labelSlideBarFocused");
-        focusedBox.getStyleClass().add("focusedBox");
-        focusedBox.getChildren().add(profilLabel);
-        focusedBox.setMinSize(150, 47);
-        focusedBox.setAlignment(Pos.CENTER);
+        profilLabel.getStyleClass().add("labelSlideBar");
 
         Label alamatLabel = new Label("Alamat");
         alamatLabel.getStyleClass().add("labelSlideBar");
         Label pwLabel = new Label("Ubah Password");
-        pwLabel.getStyleClass().add("labelSlideBar");
+        pwLabel.getStyleClass().add("labelSlideBarFocused");
         Label akunLabel = new Label("Ubah Akun");
         akunLabel.getStyleClass().add("labelSlideBar");
         Label fotoLabel = new Label("Ubah Foto");
         fotoLabel.getStyleClass().add("labelSlideBar");
 
-        slideBar.getChildren().addAll(focusedBox, alamatLabel, pwLabel, akunLabel, fotoLabel);
-        // slideBar.setAlignment(Pos.CENTER);
+        focusedBox.getStyleClass().add("focusedBox");
+        focusedBox.getChildren().add(pwLabel);
+        focusedBox.setMinSize(150, 47);
+        focusedBox.setAlignment(Pos.CENTER);
+        slideBar.getChildren().addAll(profilLabel, alamatLabel, focusedBox, akunLabel, fotoLabel);
         slideBar.setAlignment(Pos.BASELINE_CENTER);
         navigationBar.getChildren().addAll(logo, garis, profileLabel);
 
-
-        //Kumpulan Action Button
         profilLabel.setOnMouseClicked(e -> {
             ProfilePage profilePage = new ProfilePage(stage);
             profilePage.show(userId);
         });
-
         alamatLabel.setOnMouseClicked(e -> {
             AlamatPage alamatPage = new AlamatPage(stage);
             alamatPage.show(userId);
@@ -110,9 +103,8 @@ public class ProfilePage{
         fotoLabel.setOnMouseClicked(e -> {
             UbahFotoPage ubahFotoPage = new UbahFotoPage(stage);
             ubahFotoPage.show(userId);
-            
         });
-        //Layout Kedua
+
         Region space37 = new Region();
         space37.setPrefWidth(37);
 
@@ -121,78 +113,86 @@ public class ProfilePage{
         layoutBox2.getStyleClass().add("layoutBox2");
         layoutBox2.setPadding(new Insets(26, 58, 26, 58));
 
-        Label judul = new Label("Profil Saya");
+        Label judul = new Label("Password Saya");
         judul.getStyleClass().add("judulLayoutBox2");
 
         Line batas = new Line(299, 322, 1087, 322);
         batas.setFill(Color.web("#000"));
 
-        //Text Field
-        HBox nama = new HBox(37);
-        Label namaLabel = new Label("Nama                         :");
-        namaLabel.getStyleClass().add("allLabelforSetting");
-        TextField namaField = new TextField(users.getNama());
-        namaField.setPrefSize(350, 30);
-        namaField.getStyleClass().add("allFieldforSetting");
-        nama.getChildren().addAll(namaLabel, space37, namaField);
+        HBox passwordLama = new HBox(37);
+        Label passwordLamaLabel = new Label("Password Lama                           :");
+        passwordLamaLabel.getStyleClass().add("allLabelforSetting");
+        PasswordField passwordLamaField = new PasswordField();
+        passwordLamaField.setPrefSize(350, 30);
+        passwordLamaField.getStyleClass().add("allFieldforSetting");
+        passwordLama.getChildren().addAll(passwordLamaLabel, space37, passwordLamaField);
 
-        HBox nomorHp = new HBox(37);
-        Label nomorLabel = new Label("Nomor Handphone :");
-        nomorLabel.getStyleClass().add("allLabelforSetting");
-        TextField nomorField = new TextField(users.getNomorHp());
-        nomorField.setPrefSize(350, 30);
-        nomorField.getStyleClass().add("allFieldforSetting");
-        nomorHp.getChildren().addAll(nomorLabel,space37,  nomorField);
+        HBox passwordBaru = new HBox(37);
+        Label passwordBaruLabel = new Label("Password Baru                            :");
+        passwordBaruLabel.getStyleClass().add("allLabelforSetting");
+        PasswordField passwordBaruField = new PasswordField();
+        passwordBaruField.setPrefSize(350, 30);
+        passwordBaruField.getStyleClass().add("allFieldforSetting");
+        passwordBaru.getChildren().addAll(passwordBaruLabel, space37, passwordBaruField);
 
-        HBox tempatLahir = new HBox();
-        Label tempatLabel = new Label("Tempat Lahir            :");
-        TextField tempatField = new TextField(users.getTempatLahir());
-        tempatLabel.getStyleClass().add("allLabelforSetting");
-        tempatField.getStyleClass().add("allFieldforSetting");
-        tempatField.setPrefSize(350, 30);
-        tempatLahir.getChildren().addAll(tempatLabel, space37, tempatField);
+        HBox konfirmasiPasswordBaru = new HBox();
+        Label konfirmasiPasswordBaruLabel = new Label("Konfirmasi Password Baru        :");
+        konfirmasiPasswordBaruLabel.getStyleClass().add("allLabelforSetting");
+        PasswordField konfirmasiPasswordBaruField = new PasswordField();
+        konfirmasiPasswordBaruField.getStyleClass().add("allFieldforSetting");
+        konfirmasiPasswordBaruField.setPrefSize(350, 30);
+        konfirmasiPasswordBaru.getChildren().addAll(konfirmasiPasswordBaruLabel, space37, konfirmasiPasswordBaruField);
 
-        HBox layout3 = new HBox(200);
-        
-        
+        HBox layout3 = new HBox(20);
+
         Button simpan = new Button("Simpan");
         simpan.getStyleClass().add("buttonSimpan");
-        simpan.setPrefSize(120, 30);
+        simpan.setPrefSize(250, 30);
 
-        
-        Label succesLabel = new Label("Berhasil!");
-        succesLabel.setTextFill(Color.web("#6345DD"));
-        succesLabel.setVisible(false);
+        Label successLabel = new Label("Berhasil!");
+        successLabel.setTextFill(Color.web("#6345DD"));
+        successLabel.setVisible(false);
+        successLabel.setPrefSize(250, 30);
 
+        Label errorLabel = new Label("Gagal! Periksa kembali input Anda.");
+        errorLabel.setTextFill(Color.RED);
+        errorLabel.setVisible(false);
+        errorLabel.setPrefSize(500, 20);
+
+        stage.getIcons().add(new Image("styles/AppIcon.png"));
         simpan.setOnAction(e -> {
-            String namaX = namaField.getText();
-            String nomorHP = nomorField.getText();
-            String tempatLahirr = tempatField.getText();
-            System.out.println(userId);
-            System.out.println(namaX);
-            System.out.println(nomorHP);
-            System.out.println(tempatLahirr);
-            boolean updateUser = UsersControllers.updateUser(userId, namaX, nomorHP, tempatLahirr, null , null, null, null,  "regular");
-            if (updateUser){
-                succesLabel.setVisible(true);
+            String passwordLamaa = passwordLamaField.getText();
+            String passwordBaruu = passwordBaruField.getText();
+            String konfirmasiPasswordBaruu = konfirmasiPasswordBaruField.getText();
+            boolean updateUser = false;
+
+            if (passwordLamaa.equals(users.getPassword())) {
+                if (passwordBaruu.equals(konfirmasiPasswordBaruu)) {
+                    updateUser = UsersControllers.updateUserPassword(userId, passwordBaruu);
+                } else {
+                    errorLabel.setText("Password baru dan konfirmasi tidak cocok.");
+                    errorLabel.setVisible(true);
+                }
+            } else {
+                errorLabel.setText("Password lama tidak cocok.");
+                errorLabel.setVisible(true);
             }
-            
+
+            if (updateUser) {
+                successLabel.setVisible(true);
+                errorLabel.setVisible(false);
+            }
         });
 
+        layout3.getChildren().addAll(simpan, successLabel, errorLabel);
 
-        layout3.getChildren().addAll(simpan, succesLabel);
-
-        
-        stage.getIcons().add(new Image("styles/AppIcon.png"));
-
-        layoutBox2.getChildren().addAll(judul, batas, nama, nomorHp, tempatLahir, layout3);
+        layoutBox2.getChildren().addAll(judul, batas, passwordLama, passwordBaru, konfirmasiPasswordBaru, layout3);
 
         Region space65 = new Region();
         space65.setPrefSize(0, 65);
-        
+
         bagianBawah.getChildren().addAll(slideBar, layoutBox2);
         bagianBawah.setPadding(new Insets(0, 241, 116, 241));
-        // awal.setPadding(new Insets(0, 241, 116, 241));
         awal.getChildren().addAll(navigationBar, space65, bagianBawah);
         root.getChildren().add(awal);
         Scene scene = new Scene(root, 1382, 736);

@@ -6,6 +6,15 @@
     -fx-background-color: #E9E9E9;
 }
 
+.fotoProfil{
+    -fx-background-color: #757575;
+    -fx-background-radius: 15;
+}
+
+.photoProfile {
+    -fx-border-radius: 50%;
+}
+
 .profileLabel{
     -fx-font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
     -fx-font-size: 30;
@@ -14,7 +23,7 @@
 }
 .berhasil{
     -fx-font-family: Calibri;
-    -fx-font-size: 10;
+    -fx-font-size: 15;
     -fx-font-weight: bold;
     -fx-text-fill: #6345DD;
 }
@@ -52,7 +61,7 @@
 
 .gagal{
     -fx-font-family: Calibri;
-    -fx-font-size: 10;
+    -fx-font-size: 15;
     -fx-font-weight: bold;
     -fx-text-fill: #F65353;
 }

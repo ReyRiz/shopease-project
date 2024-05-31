@@ -1,28 +1,34 @@
 package id.faizz.tuprak9;
 
-import javafx.stage.Stage;
-import javafx.scene.Scene;
-import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBox;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Region;
+import java.io.File;
+
 import id.faizz.tuprak9.controllers.UsersControllers;
 import id.faizz.tuprak9.models.Users;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Node;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Region;
+import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 
-public class ProfilePage{
+public class UbahFotoPage {
+    
     private Stage stage;
+    private String imagePath;
 
-    ProfilePage(Stage stage){
+
+    UbahFotoPage(Stage stage){
         this.stage = stage;
     }
 
@@ -52,7 +58,7 @@ public class ProfilePage{
         garis.setStroke(Color.web("#FFFFFF"));
         garis.setStrokeWidth(2);
 
-        Label profileLabel = new Label("Profil");
+        Label profileLabel = new Label("Foto");
         profileLabel.getStyleClass().add("profileLabel");
 
         VBox bagianBawah = new VBox(18);
@@ -65,11 +71,8 @@ public class ProfilePage{
         
         VBox focusedBox = new VBox();
         Label profilLabel = new Label("Profile");
-        profilLabel.getStyleClass().add("labelSlideBarFocused");
-        focusedBox.getStyleClass().add("focusedBox");
-        focusedBox.getChildren().add(profilLabel);
-        focusedBox.setMinSize(150, 47);
-        focusedBox.setAlignment(Pos.CENTER);
+        profilLabel.getStyleClass().add("labelSlideBar");
+        
 
         Label alamatLabel = new Label("Alamat");
         alamatLabel.getStyleClass().add("labelSlideBar");
@@ -78,15 +81,21 @@ public class ProfilePage{
         Label akunLabel = new Label("Ubah Akun");
         akunLabel.getStyleClass().add("labelSlideBar");
         Label fotoLabel = new Label("Ubah Foto");
-        fotoLabel.getStyleClass().add("labelSlideBar");
+        fotoLabel.getStyleClass().add("labelSlideBarFocused");
 
-        slideBar.getChildren().addAll(focusedBox, alamatLabel, pwLabel, akunLabel, fotoLabel);
+        focusedBox.getStyleClass().add("focusedBox");
+        focusedBox.getChildren().add(fotoLabel);
+        focusedBox.setMinSize(150, 47);
+        focusedBox.setAlignment(Pos.CENTER);
+
+        slideBar.getChildren().addAll(profilLabel, alamatLabel, pwLabel, akunLabel, focusedBox);
         // slideBar.setAlignment(Pos.CENTER);
         slideBar.setAlignment(Pos.BASELINE_CENTER);
         navigationBar.getChildren().addAll(logo, garis, profileLabel);
 
 
         //Kumpulan Action Button
+
         profilLabel.setOnMouseClicked(e -> {
             ProfilePage profilePage = new ProfilePage(stage);
             profilePage.show(userId);
@@ -117,75 +126,99 @@ public class ProfilePage{
         space37.setPrefWidth(37);
 
         VBox layoutBox2 = new VBox(20);
+        layoutBox2.setAlignment(Pos.BASELINE_CENTER);
         layoutBox2.setPrefSize(900, 366);
         layoutBox2.getStyleClass().add("layoutBox2");
         layoutBox2.setPadding(new Insets(26, 58, 26, 58));
 
-        Label judul = new Label("Profil Saya");
+        Label judul = new Label("Ubah Foto");
         judul.getStyleClass().add("judulLayoutBox2");
 
         Line batas = new Line(299, 322, 1087, 322);
         batas.setFill(Color.web("#000"));
 
-        //Text Field
-        HBox nama = new HBox(37);
-        Label namaLabel = new Label("Nama                         :");
-        namaLabel.getStyleClass().add("allLabelforSetting");
-        TextField namaField = new TextField(users.getNama());
-        namaField.setPrefSize(350, 30);
-        namaField.getStyleClass().add("allFieldforSetting");
-        nama.getChildren().addAll(namaLabel, space37, namaField);
+        //VBOX for container Sementara untuk upload foto
+        VBox imageBox = new VBox();
+        imageBox.setAlignment(Pos.CENTER);
+        imageBox.setMaxSize(150, 200);
+        imageBox.getStyleClass().add("fotoProfil");
+        try {
+            ImageView fotoSebelumnya = new ImageView(users.getfoto());
+            fotoSebelumnya.setFitHeight(200);
+            fotoSebelumnya.setFitWidth(200);
+            imageBox.getChildren().add(fotoSebelumnya);
+        } catch (Exception e) {
+            e.printStackTrace();
+        
+        }
 
-        HBox nomorHp = new HBox(37);
-        Label nomorLabel = new Label("Nomor Handphone :");
-        nomorLabel.getStyleClass().add("allLabelforSetting");
-        TextField nomorField = new TextField(users.getNomorHp());
-        nomorField.setPrefSize(350, 30);
-        nomorField.getStyleClass().add("allFieldforSetting");
-        nomorHp.getChildren().addAll(nomorLabel,space37,  nomorField);
-
-        HBox tempatLahir = new HBox();
-        Label tempatLabel = new Label("Tempat Lahir            :");
-        TextField tempatField = new TextField(users.getTempatLahir());
-        tempatLabel.getStyleClass().add("allLabelforSetting");
-        tempatField.getStyleClass().add("allFieldforSetting");
-        tempatField.setPrefSize(350, 30);
-        tempatLahir.getChildren().addAll(tempatLabel, space37, tempatField);
-
-        HBox layout3 = new HBox(200);
+        HBox layout3 = new HBox(20);
+        layout3.setAlignment(Pos.CENTER);
         
         
         Button simpan = new Button("Simpan");
         simpan.getStyleClass().add("buttonSimpan");
-        simpan.setPrefSize(120, 30);
+        simpan.setPrefSize(200, 30);
+
+        Button upload = new Button("Upload Gambar");
+        upload.getStyleClass().add("buttonSimpan");
+        upload.setPrefSize(200, 30);
 
         
         Label succesLabel = new Label("Berhasil!");
+        succesLabel.setStyle("-fx-font-size: 20;");
         succesLabel.setTextFill(Color.web("#6345DD"));
         succesLabel.setVisible(false);
 
-        simpan.setOnAction(e -> {
-            String namaX = namaField.getText();
-            String nomorHP = nomorField.getText();
-            String tempatLahirr = tempatField.getText();
-            System.out.println(userId);
-            System.out.println(namaX);
-            System.out.println(nomorHP);
-            System.out.println(tempatLahirr);
-            boolean updateUser = UsersControllers.updateUser(userId, namaX, nomorHP, tempatLahirr, null , null, null, null,  "regular");
-            if (updateUser){
-                succesLabel.setVisible(true);
+    // Menambahkan kode untuk upload gambar
+        upload.setOnAction(e -> {
+            FileChooser fileChooser = new FileChooser();
+            fileChooser.setTitle("Pilih Gambar");
+            fileChooser.getExtensionFilters().addAll(
+               new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg"));
+            File selectedFile = fileChooser.showOpenDialog(stage);
+            if (selectedFile != null) {
+                imagePath = selectedFile.getAbsolutePath(); // Menyimpan path gambar yang dipilih
+                // Menggunakan ImageView untuk menampilkan gambar yang dipilih
+                ImageView imageView = new ImageView(new Image(selectedFile.toURI().toString()));
+                imageView.setFitWidth(200);
+                imageView.setFitHeight(200);
+                imageBox.getChildren().clear();
+                imageBox.getChildren().add(imageView);
             }
-            
         });
-
-
-        layout3.getChildren().addAll(simpan, succesLabel);
-
-        
+    
         stage.getIcons().add(new Image("styles/AppIcon.png"));
 
-        layoutBox2.getChildren().addAll(judul, batas, nama, nomorHp, tempatLahir, layout3);
+        simpan.setOnAction(e -> {
+            if (imagePath == null || imagePath.isEmpty()) {
+                // Tampilkan pesan jika tidak ada gambar yang dipilih
+                succesLabel.setText("Pilih gambar terlebih dahulu!");
+                succesLabel.setTextFill(Color.RED);
+                succesLabel.setVisible(true);
+            } else {
+                boolean updateUserFoto = UsersControllers.updateUserFoto(userId, imagePath);
+                users.setfoto(imagePath);
+                if (updateUserFoto) {
+                    // Tampilkan pesan berhasil jika penyimpanan berhasil
+                    succesLabel.setText("Berhasil!");
+                    succesLabel.setTextFill(Color.web("#6345DD"));
+                    succesLabel.setVisible(true);
+                } else {
+                    // Tampilkan pesan gagal jika terjadi masalah dalam penyimpanan
+                    succesLabel.setText("Gagal menyimpan gambar.");
+                    succesLabel.setTextFill(Color.RED);
+                    succesLabel.setVisible(true);
+                }
+            }
+        });
+        
+
+
+        layout3.getChildren().addAll(simpan, upload);
+
+
+        layoutBox2.getChildren().addAll(judul, batas, imageBox, layout3, succesLabel);
 
         Region space65 = new Region();
         space65.setPrefSize(0, 65);

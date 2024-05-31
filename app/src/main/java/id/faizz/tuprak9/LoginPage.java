@@ -55,7 +55,7 @@ public class LoginPage {
         // Membuat VBox untuk elemen-elemen login
         VBox loginBox = new VBox(10);
         loginBox.setPadding(new Insets(26, 28, 30, 29));
-        loginBox.setPrefSize(300, 365);
+        loginBox.setPrefSize(300, 380);
         loginBox.getStyleClass().add("loginBox");
 
         // Membuat elemen-elemen login
@@ -90,13 +90,14 @@ public class LoginPage {
         regBtn.setMinSize(250, 35);
         regBtn.getStyleClass().add("regBtn");
 
-
         VBox gagal = new VBox();
         gagal.setPrefSize(20, 10);
         Label gagal1 = new Label("Gagal Login");
-        gagal1.setVisible(true);
+        gagal1.setVisible(false);
         gagal1.getStyleClass().add("gagal");
         gagal1.setAlignment(Pos.CENTER);
+        gagal.getChildren().add(gagal1);
+        gagal.setAlignment(Pos.CENTER);
         // Menambahkan elemen-elemen ke dalam VBox loginBox
         loginBox.getChildren().addAll(textLogin, usernameText, usernameField, pwText, pwField, loginBtn, newUserLine,
                 regBtn, gagal);
@@ -122,13 +123,34 @@ public class LoginPage {
 
             Users userLogin = UsersControllers.login(username, password);
 
-            if (userLogin != null){
-                HomePage home = new HomePage(stage);
-                home.show(userLogin.getId());
-            } else {
-                gagal.setVisible(true);
-            }
+            if (userLogin != null) {
+                gagal1.getStyleClass().removeAll("gagal");
+                gagal1.getStyleClass().add("berhasil");
+                gagal1.setText("Berhasil Login!");
+                gagal1.setVisible(true);
+                PauseTransition pause = new PauseTransition(Duration.seconds(2));
+                pause.setOnFinished(event -> {
+                    gagal1.setVisible(false);
+                    if (userLogin.getRole().equals("seller")){
+                        SellerPage sellerPage = new SellerPage(stage);
+                        sellerPage.show(userLogin.getId());
+                    } else {
+                        HomePage home = new HomePage(stage);
+                        home.show(userLogin.getId());
+                    }
 
+                });
+                pause.play();
+            } else {
+                gagal1.setText("Gagal Login");  // Mengatur ulang teks jika gagal login
+                gagal1.setTextFill(Color.RED);  // Mengatur warna teks menjadi merah
+                gagal1.setVisible(true);
+                PauseTransition pause = new PauseTransition(Duration.seconds(2));
+                pause.setOnFinished(event -> {
+                    gagal1.setVisible(false);
+                });
+                pause.play();
+            }
         });
 
         // Aksi ketika tombol register ditekan
@@ -138,6 +160,7 @@ public class LoginPage {
         });
 
         // Menampilkan stage
+        stage.getIcons().add(new Image("styles/AppIcon.png"));
         stage.show();
     }
 }
