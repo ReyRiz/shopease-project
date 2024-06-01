@@ -111,12 +111,11 @@ public class SellerPage {
 
         searchBox.getChildren().addAll(searchField, cari);
 
-        cari.setOnAction(e -> {
+        searchField.textProperty().addListener((observable, oldValue, newValue) -> {
+            String dicari = newValue;
             kumpulanProduk.getChildren().clear();
-            String dicari = searchField.getText();
             for (Produk i : produk2) {
-                if (i.getNama().equals(dicari)) {
-
+                if (dicari.isEmpty() || i.getNama().toLowerCase().contains(dicari.toLowerCase())) {
                     HBox produk = new HBox(10);
                     produk.setPadding(new Insets(20));
                     produk.setPrefSize(729, 150);
@@ -132,7 +131,7 @@ public class SellerPage {
                         imageContainer.setPrefSize(100, 100);
                         imageContainer.getChildren().add(image);
                     } catch (Exception error) {
-                        error.printStackTrace(); // Print the stack trace to debug the issue
+                        error.printStackTrace(); 
                         System.out.println("Failed to load product image, using fallback image.");
                         ImageView image = new ImageView(new Image("styles/eye-slash.png"));
                         image.setFitWidth(100);
@@ -150,27 +149,25 @@ public class SellerPage {
 
                     namaProdukDanHarga.getChildren().addAll(namaProduk, hargaProduk);
 
-                    Region spasii = new Region();
-                    HBox.setHgrow(spasii, Priority.ALWAYS);
-
                     VBox buttonEdit1 = new VBox();
                     buttonEdit1.setAlignment(Pos.BOTTOM_RIGHT);
 
                     Button buttonEdit = new Button("EDIT PRODUK");
                     buttonEdit.setPrefSize(200, 40);
                     buttonEdit.getStyleClass().add("buttonSimpan");
-                    produk.getChildren().addAll(imageContainer, namaProdukDanHarga, spasii, buttonEdit);
 
                     buttonEdit.setOnAction(event -> {
                         editPage editPage = new editPage(stage, i);
                         editPage.show(userId);
                     });
 
+                    Region spasii = new Region();
+                    HBox.setHgrow(spasii, Priority.ALWAYS);
+                    buttonEdit1.getChildren().add(buttonEdit);
+                    produk.getChildren().addAll(imageContainer, namaProdukDanHarga, spasii, buttonEdit1);
                     kumpulanProduk.getChildren().add(produk);
-
                 }
             }
-
         });
 
         Label tambahoredit = new Label("Tambah/edit Produk");
