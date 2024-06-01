@@ -87,7 +87,7 @@ public class TambahProduk {
 
         VBox tambahx = new VBox();
         tambahx.setAlignment(Pos.CENTER);
-        Label tambahLabel = new Label("Edit Produk");
+        Label tambahLabel = new Label("Tambah Produk");
         tambahLabel.setStyle("-fx-text-fill: #000; -fx-font-size: 25; -fx-font-weight: bold; -fx-font-family: Calibri;");
         tambahx.getChildren().add(tambahLabel);
 
@@ -145,7 +145,7 @@ public class TambahProduk {
         hargaField.getStyleClass().add("textFieldforProduk");
         hargaSection.getChildren().addAll(hargaLabel, hargaField);
 
-        Button simpan = new Button("KONFIRMASI EDIT");
+        Button simpan = new Button("TAMBAH");
         simpan.setPrefSize(150, 50);
         simpan.getStyleClass().add("buttonSimpan");
 
