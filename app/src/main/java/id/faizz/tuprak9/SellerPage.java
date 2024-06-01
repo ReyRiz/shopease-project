@@ -16,6 +16,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
@@ -30,7 +31,7 @@ public class SellerPage {
     }
 
     public void show(int userId) {
-        
+
         List<Produk> produk2 = ProdukControllers.getAllProduk(userId);
         Users users = UsersControllers.getUserById(userId);
 
@@ -47,7 +48,7 @@ public class SellerPage {
         ImageView logo = new ImageView(new Image("styles/Seller.png"));
 
         logo.setOnMouseClicked(e -> {
-            if (users.getRole().equals("seller")){
+            if (users.getRole().equals("seller")) {
                 SellerPage sellerPage = new SellerPage(stage);
                 sellerPage.show(userId);
             } else {
@@ -84,7 +85,7 @@ public class SellerPage {
         // Bagian Home - Scroll Pane;
         ScrollPane home = new ScrollPane();
         home.setPrefSize(1382, 626);
-        home.setFitToWidth(true); 
+        home.setFitToWidth(true);
         home.setHbarPolicy(ScrollBarPolicy.NEVER);
 
         VBox isiHome = new VBox(20); // Added spacing between elements
@@ -103,7 +104,6 @@ public class SellerPage {
         cari.getStyleClass().add("buttonSimpan");
         cari.setPrefSize(110, 40);
 
-        
         VBox kumpulanProduk = new VBox(20);
         kumpulanProduk.setPadding(new Insets(20));
         kumpulanProduk.getStyleClass().add("searchUntukSeller");
@@ -114,14 +114,14 @@ public class SellerPage {
         cari.setOnAction(e -> {
             kumpulanProduk.getChildren().clear();
             String dicari = searchField.getText();
-            for (Produk i : produk2){
-                if (i.getNama().equals(dicari)){
+            for (Produk i : produk2) {
+                if (i.getNama().equals(dicari)) {
 
                     HBox produk = new HBox(10);
                     produk.setPadding(new Insets(20));
                     produk.setPrefSize(729, 150);
                     produk.getStyleClass().add("produkContainer");
-        
+
                     VBox imageContainer = new VBox();
                     try {
                         System.out.println("Loading product image from: " + i.getFoto());
@@ -140,34 +140,34 @@ public class SellerPage {
                         imageContainer.setPrefSize(100, 100);
                         imageContainer.getChildren().add(image);
                     }
-        
+
                     VBox namaProdukDanHarga = new VBox(40);
                     Label namaProduk = new Label(i.getNama());
                     namaProduk.setStyle("-fx-font-family: Calibri; -fx-font-size: 25; -fx-text-fill: #000;");
-        
+
                     Label hargaProduk = new Label("Rp. " + String.valueOf(i.getHarga()));
                     hargaProduk.setStyle("-fx-font-family: Calibri; -fx-font-size: 30; -fx-text-fill: #6345DD; -fx-font-weight: bold;");
-        
+
                     namaProdukDanHarga.getChildren().addAll(namaProduk, hargaProduk);
-        
+
                     Region spasii = new Region();
-                    spasii.setPrefWidth(230);
-                    kumpulanProduk.getChildren().add(produk);             
-                    
+                    HBox.setHgrow(spasii, Priority.ALWAYS);
+
                     VBox buttonEdit1 = new VBox();
                     buttonEdit1.setAlignment(Pos.BOTTOM_RIGHT);
-                    
+
                     Button buttonEdit = new Button("EDIT PRODUK");
                     buttonEdit.setPrefSize(200, 40);
                     buttonEdit.getStyleClass().add("buttonSimpan");
                     produk.getChildren().addAll(imageContainer, namaProdukDanHarga, spasii, buttonEdit);
-        
+
                     buttonEdit.setOnAction(event -> {
-                        // Masuk Ke Halaman edit Produk
                         editPage editPage = new editPage(stage, i);
                         editPage.show(userId);
-                    });                    
-                    
+                    });
+
+                    kumpulanProduk.getChildren().add(produk);
+
                 }
             }
 
@@ -181,14 +181,12 @@ public class SellerPage {
         tambah.setPrefSize(240, 50);
 
         tambah.setOnAction(e -> {
-            // Masuk ke halama tambah Produk
             TambahProduk tambahPage = new TambahProduk(stage);
             tambahPage.show(userId);
         });
 
         layout1.getChildren().addAll(searchBox, tambahoredit, tambah);
         layout1.getStyleClass().add("layout1Seller");
-
 
         for (Produk i : produk2) {
             HBox produk = new HBox(10);
@@ -206,7 +204,7 @@ public class SellerPage {
                 imageContainer.setPrefSize(100, 100);
                 imageContainer.getChildren().add(image);
             } catch (Exception e) {
-                e.printStackTrace(); // Print the stack trace to debug the issue
+                e.printStackTrace(); 
                 System.out.println("Failed to load product image, using fallback image.");
                 ImageView image = new ImageView(new Image("styles/eye-slash.png"));
                 image.setFitWidth(100);
@@ -232,13 +230,12 @@ public class SellerPage {
             buttonEdit.getStyleClass().add("buttonSimpan");
 
             buttonEdit.setOnAction(e -> {
-                // Masuk Ke Halaman edit Produk
-                editPage editPage = new editPage(stage , i);
+                editPage editPage = new editPage(stage, i);
                 editPage.show(userId);
             });
 
             Region spasii = new Region();
-            spasii.setPrefWidth(230);
+            HBox.setHgrow(spasii, Priority.ALWAYS);
             buttonEdit1.getChildren().add(buttonEdit);
             produk.getChildren().addAll(imageContainer, namaProdukDanHarga, spasii, buttonEdit1);
             kumpulanProduk.getChildren().add(produk);
@@ -249,7 +246,7 @@ public class SellerPage {
         home.setContent(isiHome);
         username.getChildren().addAll(userLabel, photoProfile);
         navigationBar.getChildren().addAll(logo, spasi, username);
-        awal.getChildren().addAll(navigationBar, home); // Added home to awal
+        awal.getChildren().addAll(navigationBar, home);
 
         root.getChildren().add(awal);
 
