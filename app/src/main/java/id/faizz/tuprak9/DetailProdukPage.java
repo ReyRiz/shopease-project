@@ -12,8 +12,10 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import id.faizz.tuprak9.controllers.KeranjangControllers;
 import id.faizz.tuprak9.controllers.ProdukControllers;
 import id.faizz.tuprak9.controllers.UsersControllers;
+import id.faizz.tuprak9.models.Keranjang;
 import id.faizz.tuprak9.models.Produk;
 import id.faizz.tuprak9.models.Users;
 
@@ -101,6 +103,15 @@ public class DetailProdukPage {
         Button keranjang = new Button("TAMBAH KERANJANG");
         keranjang.setPrefSize(182, 45);
         keranjang.getStyleClass().add("buttonFordetail");
+
+        keranjang.setOnAction(e -> {
+            boolean berhasilTambah = KeranjangControllers.tambahKeranjang(userId, produk.getNama(), produk.getFoto(), produk.getHarga(), userId);
+            if (berhasilTambah){
+                System.out.println("Berhasil Tambah ke keranjang");
+            } else {
+                System.out.println("Gagal tambah keranjang");
+            }
+        });
 
         Button bayar = new Button("BAYAR LANGSUNG");
         bayar.setPrefSize(182, 45);
