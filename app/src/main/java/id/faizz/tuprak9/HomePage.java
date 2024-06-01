@@ -77,6 +77,7 @@ public class HomePage {
         }
         photoProfile.setFitHeight(45);
         photoProfile.setFitWidth(45);
+        photoProfile.setPreserveRatio(true);
         photoProfile.getStyleClass().add("photoProfile");
         Label userLabel = new Label(users.getUsername());
         userLabel.getStyleClass().add("usernameText");
@@ -122,7 +123,7 @@ public class HomePage {
             VBox produkBox = createProductBox(i);
             produkBox.setOnMouseClicked(e -> {
                 DetailProdukPage detailProdukPage = new DetailProdukPage(stage);
-                detailProdukPage.show(i);
+                detailProdukPage.show(userId, i);
             });
             produkContainer.getChildren().add(produkBox);
 

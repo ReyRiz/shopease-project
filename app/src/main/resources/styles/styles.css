@@ -38,6 +38,25 @@
     -fx-border-radius: 5;
 }
 
+.buttonFordetail{
+    -fx-background-color: #6345DD;
+    -fx-background-radius: 5;
+    -fx-font-family: Calibri;
+    -fx-text-fill: #FFF;
+    -fx-font-size: 15;
+    -fx-font-weight: bold;
+}
+
+
+.buttonFordetail:hover{
+    -fx-background-color: #ffffff;
+    -fx-background-radius: 5;
+    -fx-font-family: Calibri;
+    -fx-text-fill: #6345DD;
+    -fx-font-size: 15;
+    -fx-font-weight: bold;
+}
+
 .searchUntukSeller{
     -fx-background-color: #FFF;
     -fx-border-color: #A4A4A4;

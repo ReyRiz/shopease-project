@@ -70,6 +70,7 @@ public class SellerPage {
         }
         photoProfile.setFitHeight(45);
         photoProfile.setFitWidth(45);
+        photoProfile.setPreserveRatio(true);
         photoProfile.getStyleClass().add("photoProfile");
         Label userLabel = new Label(users.getUsername());
         userLabel.getStyleClass().add("usernameText");
