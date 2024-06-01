@@ -46,6 +46,16 @@ public class SellerPage {
         navigationBar.setAlignment(Pos.CENTER);
         ImageView logo = new ImageView(new Image("styles/Seller.png"));
 
+        logo.setOnMouseClicked(e -> {
+            if (users.getRole().equals("seller")){
+                SellerPage sellerPage = new SellerPage(stage);
+                sellerPage.show(userId);
+            } else {
+                HomePage home = new HomePage(stage);
+                home.show(userId);
+            }
+        });
+
         HBox username = new HBox(10);
         username.setAlignment(Pos.CENTER);
         ImageView photoProfile;
@@ -142,15 +152,15 @@ public class SellerPage {
         
                     Region spasii = new Region();
                     spasii.setPrefWidth(230);
-                    produk.getChildren().addAll(imageContainer, namaProdukDanHarga, spasii);
                     kumpulanProduk.getChildren().add(produk);             
-
+                    
                     VBox buttonEdit1 = new VBox();
                     buttonEdit1.setAlignment(Pos.BOTTOM_RIGHT);
-        
+                    
                     Button buttonEdit = new Button("EDIT PRODUK");
                     buttonEdit.setPrefSize(200, 40);
                     buttonEdit.getStyleClass().add("buttonSimpan");
+                    produk.getChildren().addAll(imageContainer, namaProdukDanHarga, spasii, buttonEdit);
         
                     buttonEdit.setOnAction(event -> {
                         // Masuk Ke Halaman edit Produk

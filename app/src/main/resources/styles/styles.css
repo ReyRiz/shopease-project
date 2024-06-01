@@ -31,6 +31,13 @@
     -fx-font-size: 35;
 }
 
+.editWindow{
+    -fx-background-color: #FFF;
+    -fx-background-radius: 5;
+    -fx-border-color: #000;
+    -fx-border-radius: 5;
+}
+
 .searchUntukSeller{
     -fx-background-color: #FFF;
     -fx-border-color: #A4A4A4;

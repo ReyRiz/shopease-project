@@ -6,7 +6,6 @@ import com.google.common.util.concurrent.ExecutionError;
 import java.util.ArrayList;
 import java.util.List;
 import id.faizz.tuprak9.config.DbConfig;
-import id.faizz.tuprak9.models.RegistrationResult;
 import id.faizz.tuprak9.models.Produk;
 
 public class ProdukControllers extends DbConfig {
@@ -21,6 +20,7 @@ public class ProdukControllers extends DbConfig {
             preparedStatement.setString(3, deskripsi);
             preparedStatement.setInt(4, harga);
             preparedStatement.setInt(5, userId);
+            preparedStatement.setInt(6, id);
             int affectedRows = preparedStatement.executeUpdate();
             return affectedRows > 0;
         } catch (Exception e){
