@@ -5,6 +5,7 @@ import javafx.scene.Scene;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
 import id.faizz.tuprak9.controllers.UsersControllers;
 import id.faizz.tuprak9.models.Users;
@@ -56,6 +57,25 @@ public class AlamatPage {
             }
         });
 
+        HBox logout = new HBox(10);
+        logout.setAlignment(Pos.CENTER);
+        Label logoutLabel = new Label("Logout");
+        logoutLabel.setStyle("-fx-text-fill: #FFF; -fx-font-family: Calibri; -fx-font-size: 30;");
+        ImageView logoutImg =new ImageView(new Image("/styles/exit.png"));
+        logout.getChildren().addAll(logoutLabel, logoutImg);
+
+        Region spasi = new Region();
+        HBox.setHgrow(spasi, Priority.ALWAYS);
+
+        logout.setOnMouseClicked(e -> {
+            App splash = new App();
+            try {
+                splash.start(stage);
+            } catch (Exception e1) {
+                e1.printStackTrace();
+            }
+        });
+
         Line garis = new Line(346, 82, 346, 137);
         garis.setStroke(Color.web("#FFFFFF"));
         garis.setStrokeWidth(2);
@@ -90,7 +110,7 @@ public class AlamatPage {
 
         slideBar.getChildren().addAll(profilLabel, focusedBox, pwLabel, akunLabel, fotoLabel);
         slideBar.setAlignment(Pos.BASELINE_CENTER);
-        navigationBar.getChildren().addAll(logo, garis, profileLabel);
+        navigationBar.getChildren().addAll(logo, garis, profileLabel, spasi, logout);
 
         // Kumpulan Action Button
         profilLabel.setOnMouseClicked(e -> {
@@ -118,7 +138,6 @@ public class AlamatPage {
             ubahFotoPage.show(userId);
         });
 
-        // Layout Kedua
         VBox layoutBox2 = new VBox(20);
         layoutBox2.setPrefSize(900, 466);
         layoutBox2.getStyleClass().add("layoutBox2");
@@ -130,7 +149,6 @@ public class AlamatPage {
         Line batas = new Line(299, 322, 1087, 322);
         batas.setFill(Color.web("#000"));
 
-        // Text Field
         HBox Alamat = new HBox(10);
         Label AlamatLabel = new Label("Alamat                       :");
         AlamatLabel.getStyleClass().add("allLabelforSetting");
@@ -192,6 +210,5 @@ public class AlamatPage {
         stage.getIcons().add(new Image("styles/AppIcon.png"));
         stage.setTitle("Shopease");
         stage.show();
-        
     }
 }

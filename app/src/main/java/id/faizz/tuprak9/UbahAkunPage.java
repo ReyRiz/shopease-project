@@ -12,6 +12,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
@@ -55,6 +56,25 @@ public class UbahAkunPage {
             }
         });
 
+        HBox logout = new HBox(10);
+        logout.setAlignment(Pos.CENTER);
+        Label logoutLabel = new Label("Logout");
+        logoutLabel.setStyle("-fx-text-fill: #FFF; -fx-font-family: Calibri; -fx-font-size: 30;");
+        ImageView logoutImg =new ImageView(new Image("/styles/exit.png"));
+        logout.getChildren().addAll(logoutLabel, logoutImg);
+
+        Region spasi = new Region();
+        HBox.setHgrow(spasi, Priority.ALWAYS);
+        
+        logout.setOnMouseClicked(e -> {
+            App splash = new App();
+            try {
+                splash.start(stage);
+            } catch (Exception e1) {
+                e1.printStackTrace();
+            }
+        });
+
 
 
         Line garis = new Line(346, 82, 346, 137);
@@ -95,7 +115,7 @@ public class UbahAkunPage {
         slideBar.getChildren().addAll(profilLabel, alamatLabel, pwLabel, focusedBox, fotoLabel);
         // slideBar.setAlignment(Pos.CENTER);
         slideBar.setAlignment(Pos.BASELINE_CENTER);
-        navigationBar.getChildren().addAll(logo, garis, profileLabel);
+        navigationBar.getChildren().addAll(logo, garis, profileLabel, spasi, logout);
 
 
         //Kumpulan Action Button
