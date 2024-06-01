@@ -61,11 +61,80 @@ public class HomePage {
         searchField.getStyleClass().add("searchBar");
         searchField.setPromptText("Silahkan mencari disini..");
 
-        searchField.setOnAction(e -> {
+        // Kontainer produk untuk pembaruan dinamis
+        FlowPane produkContainer = new FlowPane();
+        produkContainer.setPadding(new Insets(20));
+        produkContainer.setHgap(20);
+        produkContainer.setVgap(20);
+        produkContainer.setAlignment(Pos.TOP_CENTER);
 
+        // Inisialisasi kontainer produk dengan semua produk
+        produkContainer.getChildren().clear();
+        for (Produk i : produks) {
+            VBox produkBox = new VBox();
+            produkBox.setPadding(new Insets(15));
+            produkBox.getStyleClass().add("produkBox");
+            produkBox.setMaxSize(130, 186);
+            try {
+                Image x = new Image("file:" + i.getFoto());
+                ImageView image = new ImageView(x);
+                image.setFitWidth(130);
+                image.setFitHeight(130);
+                Label judulProduk = new Label(i.getNama());
+                judulProduk.setPrefSize(120, 20);
+                judulProduk.getStyleClass().add("judulProduk");
+                Label hargaProduk = new Label(String.valueOf(i.getHarga()));
+                hargaProduk.setPrefSize(120, 14);
+                hargaProduk.getStyleClass().add("hargaProduk");
+                produkBox.getChildren().addAll(image, judulProduk, hargaProduk);
+            } catch (Exception e) {
+                System.out.println("Error memuat Gambar");
+            }
+            produkBox.setOnMouseClicked(e -> {
+                DetailProdukPage detailProdukPage = new DetailProdukPage(stage);
+                detailProdukPage.show(userId, i);
+            });
+            produkContainer.getChildren().add(produkBox);
+        }
+
+        searchField.textProperty().addListener((observable, oldValue, newValue) -> {
+            produkContainer.getChildren().clear();
+            for (Produk i : produks) {
+                if (newValue.isEmpty() || i.getNama().toLowerCase().contains(newValue.toLowerCase())) {
+                    VBox produkBox = new VBox();
+                    produkBox.setPadding(new Insets(15));
+                    produkBox.getStyleClass().add("produkBox");
+                    produkBox.setMaxSize(130, 186);
+                    try {
+                        Image x = new Image("file:" + i.getFoto());
+                        ImageView image = new ImageView(x);
+                        image.setFitWidth(130);
+                        image.setFitHeight(130);
+                        Label judulProduk = new Label(i.getNama());
+                        judulProduk.setPrefSize(120, 20);
+                        judulProduk.getStyleClass().add("judulProduk");
+                        Label hargaProduk = new Label(String.valueOf(i.getHarga()));
+                        hargaProduk.setPrefSize(120, 14);
+                        hargaProduk.getStyleClass().add("hargaProduk");
+                        produkBox.getChildren().addAll(image, judulProduk, hargaProduk);
+                    } catch (Exception e) {
+                        System.out.println("Error memuat Gambar");
+                    }
+                    produkBox.setOnMouseClicked(e -> {
+                        DetailProdukPage detailProdukPage = new DetailProdukPage(stage);
+                        detailProdukPage.show(userId, i);
+                    });
+                    produkContainer.getChildren().add(produkBox);
+                }
+            }
         });
 
         ImageView logoKeranjang = new ImageView(new Image("styles/Keranjang.png"));
+
+        logoKeranjang.setOnMouseClicked(e -> {
+            KeranjangPage keranjangPage = new KeranjangPage(stage);
+            keranjangPage.show(userId);
+        });
 
         HBox username = new HBox(10);
         username.setAlignment(Pos.CENTER);
@@ -93,9 +162,6 @@ public class HomePage {
         home.setFitToWidth(true);
         home.setHbarPolicy(ScrollBarPolicy.NEVER);
 
-        VBox isiHome = new VBox(20);
-        isiHome.setFillWidth(true);
-
         HBox altBannerBox = new HBox(20);
         ImageView banner3 = new ImageView(new Image("styles/banner3.png"));
         banner3.setFitHeight(100);
@@ -110,40 +176,11 @@ public class HomePage {
         garis.setStrokeWidth(3);
         garis.setStroke(Color.web("#A4A4A4"));
 
-        FlowPane produkContainer = new FlowPane();
-        produkContainer.setPadding(new Insets(20));
-        produkContainer.setHgap(20);
-        produkContainer.setVgap(20);
-        produkContainer.setAlignment(Pos.TOP_CENTER);
-
-        isiHome.getChildren().addAll(altBannerBox, garis);
-        int counter = 0;
-
-        for (Produk i : produks) {
-            VBox produkBox = createProductBox(i);
-            produkBox.setOnMouseClicked(e -> {
-                DetailProdukPage detailProdukPage = new DetailProdukPage(stage);
-                detailProdukPage.show(userId, i);
-            });
-            produkContainer.getChildren().add(produkBox);
-
-            counter++;
-            if (counter == 4) {
-                counter = 0;
-                isiHome.getChildren().add(produkContainer);
-                produkContainer = new FlowPane();
-                produkContainer.setPadding(new Insets(20));
-                produkContainer.setHgap(20);
-                produkContainer.setVgap(20);
-                produkContainer.setAlignment(Pos.TOP_CENTER);
-            }
-        }
-
-        if (counter > 0) {
-            isiHome.getChildren().add(produkContainer);
-        }
-
+        VBox isiHome = new VBox(20);
+        isiHome.setFillWidth(true);
+        isiHome.getChildren().addAll(altBannerBox, garis, produkContainer);
         home.setContent(isiHome);
+
         username.getChildren().addAll(userLabel, photoProfile);
         navigationBar.getChildren().addAll(logo, searchField, logoKeranjang, username);
         awal.getChildren().addAll(navigationBar, home);
@@ -155,28 +192,5 @@ public class HomePage {
         stage.setTitle("Shopease");
         stage.setScene(scene);
         stage.show();
-    }
-
-    private VBox createProductBox(Produk produk) {
-        VBox produkBox = new VBox();
-        produkBox.setPadding(new Insets(15));
-        produkBox.getStyleClass().add("produkBox");
-        produkBox.setMaxSize(130, 186);
-        try {
-            Image x = new Image("file:" + produk.getFoto());
-            ImageView image = new ImageView(x);
-            image.setFitWidth(130);
-            image.setFitHeight(130);
-            Label judulProduk = new Label(produk.getNama());
-            judulProduk.setPrefSize(120, 20);
-            judulProduk.getStyleClass().add("judulProduk");
-            Label hargaProduk = new Label(String.valueOf(produk.getHarga()));
-            hargaProduk.setPrefSize(120, 14);
-            hargaProduk.getStyleClass().add("hargaProduk");
-            produkBox.getChildren().addAll(image, judulProduk, hargaProduk);
-        } catch (Exception e) {
-            System.out.println("Error memuat Gambar");
-        }
-        return produkBox;
     }
 }
