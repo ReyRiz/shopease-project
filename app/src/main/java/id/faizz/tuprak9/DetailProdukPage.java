@@ -92,6 +92,7 @@ public class DetailProdukPage {
         deskripsi.setAlignment(Pos.CENTER_LEFT);
         deskripsi.setPrefSize(500, 183);
         deskripsi.setText(produk.getDeskripsi());
+        deskripsi.setWrapText(true);
         deskripsi.setStyle("-fx-font-family: Calibri; -fx-text-fill: #000; -fx-font-size: 20;");
         
         Label harga = new Label();
@@ -153,6 +154,11 @@ public class DetailProdukPage {
         Button bayar = new Button("BAYAR LANGSUNG");
         bayar.setPrefSize(182, 45);
         bayar.getStyleClass().add("buttonFordetail");
+
+        bayar.setOnAction(e -> {
+            CheckoutPage checkoutPage = new CheckoutPage(stage);
+            checkoutPage.show(userId, harga);
+        });
 
         buttonDua.getChildren().addAll(keranjang, bayar);
         bagianProduk.getChildren().addAll(judulProduk, deskripsiProduk, deskripsi, harga, buttonDua);

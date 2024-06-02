@@ -27,6 +27,21 @@ public class KeranjangControllers extends DbConfig {
         return false;
     }
 
+    public static boolean removeKeranjangByIdAndUserId(int id, int userId) {
+        query = "DELETE FROM keranjang WHERE id=? AND userId=?";
+        try {
+            getConnection();
+            preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setInt(1, id);
+            preparedStatement.setInt(2, userId);
+            int rowsAffected = preparedStatement.executeUpdate();
+            return rowsAffected > 0;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
     public static List<Keranjang> getProdukbyId(int userId){
         List<Keranjang> produks = new ArrayList<>();
         query = "SELECT * FROM keranjang WHERE userId=?";

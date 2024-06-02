@@ -38,6 +38,7 @@ public class KeranjangPage {
 
     public void show(int userId) {
         int hargaSEMUA = 0;
+        ArrayList<Integer> idTerpilih = new ArrayList<>();
         ArrayList<Integer> totalHarga = new ArrayList<>();
         List<Keranjang> listKeranjang = KeranjangControllers.getProdukbyId(userId);
 
@@ -130,8 +131,10 @@ public class KeranjangPage {
             cekListPerProduk.setOnAction(e -> {
                 if (cekListPerProduk.isSelected()){
                     totalHarga.add(i.getHarga());
+                    idTerpilih.add(i.getId());
                 } else {
                     totalHarga.remove((Integer) i.getHarga()); // Hapus harga produk dari totalHarga
+                    idTerpilih.remove((Integer) i.getId());
                 }
                 // Perbarui label hargaTotal
                 int total = totalHarga.stream().mapToInt(Integer::intValue).sum();
@@ -166,28 +169,26 @@ public class KeranjangPage {
 
         cekListSemua.setOnAction(e -> {
             if (cekListSemua.isSelected()) {
-                // Tandai semua CheckBox produk
                 for (Node node : tampungProduk.getChildren()) {
                     HBox produkBox = (HBox) node;
                     CheckBox cekListPerProduk = (CheckBox) produkBox.getChildren().get(0);
                     cekListPerProduk.setSelected(true);
                 }
-                // Tambahkan semua harga produk ke totalHarga
                 totalHarga.clear();
+                idTerpilih.clear();
                 for (Keranjang i : listKeranjang) {
                     totalHarga.add(i.getHarga());
+                    idTerpilih.add(i.getId());
                 }
             } else {
-                // Batalkan penandaan semua CheckBox produk
                 for (Node node : tampungProduk.getChildren()) {
                     HBox produkBox = (HBox) node;
                     CheckBox cekListPerProduk = (CheckBox) produkBox.getChildren().get(0);
                     cekListPerProduk.setSelected(false);
                 }
-                // Hapus semua harga produk dari totalHarga
                 totalHarga.clear();
+                idTerpilih.clear();
             }
-            // Perbarui label hargaTotal
             int total = totalHarga.stream().mapToInt(Integer::intValue).sum();
             hargaTotal.setText("Rp." + String.valueOf(total));
         });
@@ -238,7 +239,7 @@ public class KeranjangPage {
             } else {
                 // Tampilkan halaman checkout
                 CheckoutPage checkoutPage = new CheckoutPage(stage);
-                checkoutPage.show(userId, hargaTotal);
+                checkoutPage.show(userId, hargaTotal, idTerpilih);
             }
         });
 
