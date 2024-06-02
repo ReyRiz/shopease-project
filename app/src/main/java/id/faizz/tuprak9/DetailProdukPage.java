@@ -1,6 +1,7 @@
 package id.faizz.tuprak9;
 
 import javafx.stage.Stage;
+import javafx.util.Duration;
 import javafx.scene.Scene;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
@@ -8,6 +9,8 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.animation.FadeTransition;
+import javafx.animation.PauseTransition;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
@@ -106,8 +109,42 @@ public class DetailProdukPage {
 
         keranjang.setOnAction(e -> {
             boolean berhasilTambah = KeranjangControllers.tambahKeranjang(userId, produk.getNama(), produk.getFoto(), produk.getHarga(), userId);
-            if (berhasilTambah){
-                System.out.println("Berhasil Tambah ke keranjang");
+            if (berhasilTambah) {
+                StackPane dimmedBackground = new StackPane();
+                dimmedBackground.setStyle("-fx-background-color: rgba(0, 0, 0, 0.5);");
+                dimmedBackground.setPrefSize(1382, 736);
+                dimmedBackground.setVisible(false);
+
+                Label floatingMessage = new Label("Berhasil Disimpan di Keranjang");
+                floatingMessage.setStyle("-fx-background-color: #6345DD; -fx-background-radius: 5; -fx-text-fill: #FFF; -fx-font-size: 20; -fx-padding: 10px; -fx-font-family: Calibri; -fx-font-weight:Bold;");
+                StackPane.setAlignment(floatingMessage, Pos.CENTER);
+                floatingMessage.setVisible(false);
+
+                root.getChildren().add(dimmedBackground);
+                root.getChildren().add(floatingMessage);
+
+                dimmedBackground.setVisible(true);
+                floatingMessage.setVisible(true);
+
+                FadeTransition fadeIn = new FadeTransition(Duration.millis(200), dimmedBackground);
+                fadeIn.setFromValue(0);
+                fadeIn.setToValue(1);
+
+                PauseTransition pause = new PauseTransition(Duration.seconds(2));
+
+                FadeTransition fadeOut = new FadeTransition(Duration.millis(200), dimmedBackground);
+                fadeOut.setFromValue(1);
+                fadeOut.setToValue(0);
+
+                fadeIn.setOnFinished(event -> pause.play());
+                pause.setOnFinished(event -> fadeOut.play());
+                fadeOut.setOnFinished(event -> {
+                    floatingMessage.setVisible(false);
+                    dimmedBackground.setVisible(false);
+                    root.getChildren().removeAll(dimmedBackground, floatingMessage);
+                });
+
+                fadeIn.play();
             } else {
                 System.out.println("Gagal tambah keranjang");
             }
