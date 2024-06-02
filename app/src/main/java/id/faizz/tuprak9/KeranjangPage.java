@@ -6,6 +6,7 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
+import javafx.scene.text.TextAlignment;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
@@ -14,11 +15,13 @@ import javafx.scene.image.ImageView;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.control.ScrollPane.ScrollBarPolicy;
+import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
-import id.faizz.tuprak9.controllers.ProdukControllers;
+import id.faizz.tuprak9.controllers.KeranjangControllers;
 import id.faizz.tuprak9.controllers.UsersControllers;
-import id.faizz.tuprak9.models.Produk;
+import id.faizz.tuprak9.models.Keranjang;
 import id.faizz.tuprak9.models.Users;
 
 import java.util.List;
@@ -33,7 +36,11 @@ public class KeranjangPage {
 
     public void show(int userId) {
         ArrayList<Integer> totalHarga = new ArrayList<>();
-        List<Produk> listProduk = ProdukControllers.getAllProduk(userId);
+        List<Keranjang> listKeranjang = KeranjangControllers.getProdukbyId(userId);
+
+        // Debugging: Print list size
+        System.out.println("Number of products in the cart: " + listKeranjang.size());
+
         Users users = UsersControllers.getUserById(userId);
         StackPane root = new StackPane();
 
@@ -67,88 +74,71 @@ public class KeranjangPage {
         HBox.setHgrow(spasi, Priority.ALWAYS);
 
         ScrollPane scrollPane = new ScrollPane();
-        scrollPane.setPrefSize(1382, 476);
+        scrollPane.setHbarPolicy(ScrollBarPolicy.NEVER);
         scrollPane.setStyle("-fx-background-color: #FFF");
-        scrollPane.setPadding(new Insets(30, 260, 30, 260));
 
-        VBox tampungProduk = new VBox(30);
+        VBox isi = new VBox();
+        isi.setPrefSize(1382, 476);
+        isi.setPadding(new Insets(30, 260, 30, 260));
 
-        HBox layout2 = new HBox(); // Ini sebagai bar pertama yang berisi checkbox, dan nama, dan harga
-        layout2.setPrefSize(862, 40);
-        layout2.setStyle("-fx-background-color: #5C5C5C");
-        layout2.setPadding(new Insets(3, 16, 3, 16));
+        HBox barAtas = new HBox();
+        barAtas.setAlignment(Pos.CENTER);
+        barAtas.setPadding(new Insets(0, 10, 0, 10));
+        barAtas.setPrefSize(862, 40);
+        barAtas.setStyle("-fx-background-color: #D9D9D9");
 
-        CheckBox ceklist = new CheckBox(); // checkBox untuk centang seluruh produk di keranjang
-        ceklist.setPrefSize(25, 25);
-        ceklist.setOnAction(e -> {
-            if (ceklist.isSelected()) {
-                for (Produk i : listProduk) {
+        CheckBox cekListSemua = new CheckBox();
+        cekListSemua.setPrefSize(25, 25);
+
+        Label judulProduk = new Label("PRODUK");
+        judulProduk.setPrefSize(90, 25);
+        judulProduk.setStyle("-fx-text-fill: #000; -fx-font-family: Calibri; -fx-font-size: 15;");
+
+        Label hargaSatuan = new Label("HARGA SATUAN");
+        hargaSatuan.setPrefSize(136, 25);
+        hargaSatuan.setStyle("-fx-text-fill: #000; -fx-font-family: Calibri; -fx-font-size: 15;");
+
+        Region spasi1 = new Region();
+        Region spasi2 = new Region();
+        HBox.setHgrow(spasi1, Priority.ALWAYS);
+        HBox.setHgrow(spasi2, Priority.ALWAYS);
+
+        barAtas.getChildren().addAll(cekListSemua, spasi1, judulProduk, spasi2, hargaSatuan);
+
+        VBox tampungProduk = new VBox(20);
+        tampungProduk.setPrefWidth(1382);
+
+
+
+
+
+
+        cekListSemua.setOnAction(e -> {
+            totalHarga.clear();
+            if (cekListSemua.isSelected()) {
+                for (Keranjang i : listKeranjang) {
                     totalHarga.add(i.getHarga());
                 }
-            } else {
-                totalHarga.clear();
             }
+            int total = totalHarga.stream().mapToInt(Integer::intValue).sum();
+            // totalLabel.setText("TOTAL: Rp. " + total);
         });
 
-        Label judulProduk = new Label("NAMA PRODUK");
-        judulProduk.setStyle("-fx-font-family: Calibri; -fx-text-fill: #000; -fx-font-size: 15; -fx-text-alignment: center;");
-        judulProduk.setPrefSize(90, 25);
-
-        Label satuanLabel = new Label("HARGA SATUAN");
-        satuanLabel.setStyle("-fx-font-family: Calibri; -fx-text-fill: #000; -fx-font-size: 15; -fx-text-alignment: center;");
-        satuanLabel.setPrefSize(136, 25);
-
-        layout2.getChildren().addAll(ceklist, judulProduk, spasi, satuanLabel);
-        tampungProduk.getChildren().add(layout2);
-
-        for (Produk i : listProduk) {
-            HBox produkBox = new HBox();
-            produkBox.setPrefSize(862, 137);
-            produkBox.setPadding(new Insets(30, 58, 30, 26));
-            produkBox.setStyle("-fx-background-color: #5C5C5C;");
-
-            CheckBox ceklistPerProduk = new CheckBox(); // checkBox untuk centang seluruh produk di keranjang
-            ceklistPerProduk.setPrefSize(25, 25);
-
-            Region spasi48 = new Region();
-            spasi48.setPrefSize(48, 0);
-
-            ImageView fotoProduk = new ImageView(new Image("file:" + i.getFoto()));
-            fotoProduk.setFitHeight(76);
-            fotoProduk.setFitWidth(100);
-            fotoProduk.setPreserveRatio(true);
-
-            Region spasi22 = new Region();
-            spasi22.setPrefSize(22, 0);
-
-            Label namaProduk = new Label(i.getNama());
-            namaProduk.setPrefSize(181, 75);
-            namaProduk.setStyle("-fx-font-size: 15; -fx-font-family: Calibri; -fx-text-fill: #000;");
-
-            Region spasi182 = new Region();
-            HBox.setHgrow(spasi182, Priority.ALWAYS);
-
-            Label hargaPerProduk = new Label(String.valueOf(i.getHarga()));
-            hargaPerProduk.setStyle("-fx-text-fill: #6345DD; -fx-font-family: Calibri; -fx-font-size: 30; -fx-font-weight: bold;");
-            hargaPerProduk.setPrefSize(220, 30);
-
-            produkBox.getChildren().addAll(ceklistPerProduk, spasi48, fotoProduk, spasi22, namaProduk, spasi182, hargaPerProduk);
-
-            ceklistPerProduk.setOnAction(e -> {
-                if (ceklistPerProduk.isSelected()) {
-                    totalHarga.add(i.getHarga());
-                } else {
-                    totalHarga.remove(Integer.valueOf(i.getHarga()));
-                }
-            });
-
-            tampungProduk.getChildren().add(produkBox);
-        }
-
-        scrollPane.setContent(tampungProduk);
+        isi.getChildren().addAll(barAtas, tampungProduk);
+        scrollPane.setContent(isi);
 
         HBox bottomBar = new HBox();
         bottomBar.setPrefSize(1382, 150);
+        bottomBar.setStyle("-fx-background-color: #6345DD;");
+        bottomBar.setPadding(new Insets(29, 260, 0, 260));
+
+
+        Region spasian = new Region();
+        HBox.setHgrow(spasian, Priority.ALWAYS);
+
+        Button checkoutBtn = new Button("CHECKOUT");
+
+        bottomBar.getChildren().addAll(spasian, checkoutBtn);
 
         navigationBar.getChildren().addAll(logo, garis, keranjangLabel, spasi);
         awal.getChildren().addAll(navigationBar, scrollPane, bottomBar);

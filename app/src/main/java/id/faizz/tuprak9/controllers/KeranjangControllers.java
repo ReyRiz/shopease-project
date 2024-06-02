@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import id.faizz.tuprak9.config.DbConfig;
+import id.faizz.tuprak9.models.Keranjang;
 import id.faizz.tuprak9.models.Produk;
 
 public class KeranjangControllers extends DbConfig {
@@ -26,5 +27,26 @@ public class KeranjangControllers extends DbConfig {
         return false;
     }
 
+    public static List<Keranjang> getProdukbyId(int userId){
+        List<Keranjang> produks = new ArrayList<>();
+        query = "SELECT * FROM keranjang WHERE userId=?";
+        try {
+            getConnection();
+            preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setInt(1, userId);
+            resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()){
+                int id = resultSet.getInt("id");
+                String nama = resultSet.getString("nama");
+                String foto = resultSet.getString("foto");
+                int harga = resultSet.getInt("harga");
+                Keranjang keranjang = new Keranjang(id, nama, foto, harga, userId);
+                produks.add(keranjang);
+            }
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+        return produks;
+    }
 
 }
