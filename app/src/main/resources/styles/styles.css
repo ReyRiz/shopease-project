@@ -47,7 +47,27 @@
     -fx-font-weight: bold;
 }
 
+.checkoutButton:hover{
+    -fx-font-family: Calibri;
+    -fx-background-color: #D9D9D9;
+    -fx-font-size: 25;
+    -fx-background-radius: 5;
+    -fx-font-weight: Bold;
+    -fx-text-fill: #6345DD;
+    
+}
 
+.checkoutButton{
+    -fx-font-family: Calibri;
+    -fx-background-color: #6345DD;
+    -fx-font-size: 25;
+    -fx-background-radius: 5;
+    -fx-font-weight: Bold;
+    -fx-text-fill: #FFF;
+    -fx-border-color: #FFF;
+    -fx-border-radius: 5;
+    
+}
 .buttonFordetail:hover{
     -fx-background-color: #ffffff;
     -fx-background-radius: 5;

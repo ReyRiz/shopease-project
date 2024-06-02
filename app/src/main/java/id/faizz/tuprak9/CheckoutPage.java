@@ -19,14 +19,21 @@ import id.faizz.tuprak9.models.Keranjang;
 import id.faizz.tuprak9.models.Produk;
 import id.faizz.tuprak9.models.Users;
 
-public class Checkout {
+public class CheckoutPage {
     private Stage stage;
 
-    Checkout(Stage stage){
+    CheckoutPage(Stage stage){
         this.stage = stage;
     }
 
-    public void show(int userId){
+    public void show(int userId, Label totalHarga){
+        StackPane root = new StackPane();
         
+
+        Scene scene = new Scene(root, 1382, 736);
+        stage.setScene(scene);
+        stage.setTitle("Shopease");
+        stage.getIcons().add(new Image("styles/AppIcon.png"));
+        stage.show();
     }
 }
